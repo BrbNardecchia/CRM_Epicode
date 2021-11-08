@@ -1,0 +1,32 @@
+table { 
+    width: 80%;
+    margin: 20px auto;
+}
+
+.mat-column-id{
+    width: 5%;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-ragioneSociale {
+    width: 20%;
+    padding-left: 16px;
+    width:50%;
+}
+
+.mat-column-tipoCliente {
+    text-align: center;
+    width:10%;
+}
+
+.mat-column-telefonoContatto {
+    font-style: italic;
+    text-align: center;
+}
+
+.mat-row:hover .mat-cell {
+    border-color: currentColor;
+}
+  
