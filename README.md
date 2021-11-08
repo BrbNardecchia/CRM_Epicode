@@ -1,2 +1,4 @@
 # CRM_Epicode
-CRM for Epicode's final project
+### 08/11/2021
+CRM for Epicode's final project.
+Front-End Developer Bootcamp.
