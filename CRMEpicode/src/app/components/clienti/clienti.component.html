@@ -1,35 +1,66 @@
-<table mat-table [dataSource]="clienti" class="mat-elevation-z8">
+  <div class="row">
+    <div class="col-sm">
+      <h1>Clienti</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ragione Sociale</th>
+            <th scope="col">Tipo Cliente</th>
+            <th scope="col">Contatto</th>
+            <th scope="col">Telefono Contatto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientiTotali; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ cliente.ragioneSociale }}</td>
+            <td>{{ cliente.tipoCliente }}</td>
+            <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
+            <td>{{ cliente.telefonoContatto }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-dark btn-sm mx-1"><i class="bi bi-eye"></i></button>
+              <button type="button" class="btn btn-outline-warning btn-sm mx-1"><i
+                  class="bi bi-pencil-square"></i></button>
+              <button type="button" class="btn btn-outline-danger btn-sm mx-1"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+          (pageChange)="refreshClienti()">
+        </ngb-pagination>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let clienti"> {{clienti.id}} </td>
-      </ng-container>
-    
-      <!-- Name Column -->
-      <ng-container matColumnDef="ragioneSociale">
-        <th mat-header-cell *matHeaderCellDef> Ragione Sociale </th>
-        <td mat-cell *matCellDef="let clienti"> {{clienti.ragioneSociale}} </td>
-      </ng-container>
-    
-      <!-- Weight Column -->
-      <ng-container matColumnDef="tipoCliente">
-        <th mat-header-cell *matHeaderCellDef> Tipo Cliente </th>
-        <td mat-cell *matCellDef="let clienti"> {{clienti.tipoCliente}} </td>
-      </ng-container>
-    
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="telefonoContatto">
-        <th mat-header-cell *matHeaderCellDef> Comune </th>
-        <td mat-cell *matCellDef="let clienti"> {{clienti.telefonoContatto}} </td>
-      </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  
-  
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshClienti()">
+          <option [ngValue]="5">5 items per page</option>
+          <option [ngValue]="8">8 items per page</option>
+          <option [ngValue]="10">10 items per page</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm">
+      <h1>Clienti</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ragione Sociale</th>
+            <th scope="col">Tipo Cliente</th>
+            <th scope="col">Contatto</th>
+            <th scope="col">Telefono Contatto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of Clienti; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ cliente.ragioneSociale }}</td>
+            <td>{{ cliente.tipoCliente }}</td>
+            <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
+            <td>{{ cliente.telefonoContatto }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

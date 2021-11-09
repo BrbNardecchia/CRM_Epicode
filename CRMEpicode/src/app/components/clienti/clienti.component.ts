@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IClienti } from '../../interfaces/iclienti';
-import { ClientiService } from '../../services/clienti.service';
-
-
+import { IClienti } from 'src/app/interfaces/iclienti';
+import { ClientiService } from 'src/app/services/clienti.service';
 
 @Component({
   selector: 'app-clienti',
@@ -10,18 +8,29 @@ import { ClientiService } from '../../services/clienti.service';
   styleUrls: ['./clienti.component.css']
 })
 export class ClientiComponent implements OnInit {
-  
-  clienti: IClienti[] = [];
-  displayedColumns : string [] = [ 'id' , 'ragioneSociale' , 'tipoCliente' , 'telefonoContatto' ];
-  dataSource = this.clienti;
 
-  constructor(private clientiService: ClientiService) { }
+  page = 1;
+  pageSize = 5;
+  Clienti: IClienti[] = [];
+  collectionSize = 0
 
+  clientiTotali: IClienti[] = [];
 
+  constructor(
+    private clientiService: ClientiService) {  
+    }
 
   ngOnInit(): void {
-    this.clientiService.getAllClient().subscribe(response => this.clienti = response.content);
-  }
+    this.clientiService.getAllClient().subscribe(resp => {
+      this.Clienti = resp.content;
+      this.collectionSize = this.Clienti.length;
+      this.refreshClienti()
+    })}
 
+  refreshClienti() {
+    this.clientiTotali = this.Clienti
+      .map((country, i) => ({id: i + 1, ...country}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
 
 }

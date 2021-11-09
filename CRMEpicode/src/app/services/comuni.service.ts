@@ -2,6 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IComuni } from '../interfaces/icomuni';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { IObjComuni } from '../interfaces/iobj-comuni';
+import { IProvince } from '../interfaces/iprovince';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,19 +12,17 @@ import { environment } from 'src/environments/environment';
 export class ComuniService {
 
   private urlAPI = environment.serverAddress + 'api/comuni/';
-  
-  headers = new HttpHeaders();
-  bearerAuth = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjM3OTYxNywiZXhwIjoxNjM3MjQzNjE3fQ.wXwJgdHRzf-03lmnIy-Vcg5D3pY9dNTnl5eyhOyAkCJQnGOm498D0ZcdkLXN8HCksmxlrBTRcBcL4ELu-9303Q'
-  tenantId='fe_0421'
-  
+  comuni: IComuni[] = [];
   constructor(public http: HttpClient) {
-    this.headers = this.headers
-      .set('Authorization', this.bearerAuth)
-      .set('X-TENANT-ID', this.tenantId);
   }
 
   getAllComuni() {
-    return this.http.get<IComuni[]>(environment.serverAddress + 'api/comuni?page=0&size=20&sort=id,ASC', {headers: this.headers});
+    return this.http.get<IObjComuni>(environment.serverAddress + 'api/comuni?page=0&size=20&sort=id,ASC');
+  }
+
+  getComuneByProvince(provincia: IProvince){
+    this.getAllComuni().subscribe(resp => this.comuni = resp.content)
+    return this.comuni.filter(comune => comune.provincia.sigla == provincia.sigla);
   }
 
   getComuneById(id: number){

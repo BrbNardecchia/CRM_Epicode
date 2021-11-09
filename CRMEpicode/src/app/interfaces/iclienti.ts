@@ -44,5 +44,5 @@ export interface IClienti {
     },
     dataInserimento?: string,
     dataUltimoContatto?: string,
-    fatturatoAnnuale: number
+    fatturatoAnnuale?: number
 }
