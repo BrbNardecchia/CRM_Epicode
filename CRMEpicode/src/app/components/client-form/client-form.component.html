@@ -1,0 +1,114 @@
+<div class="mx-5">
+    <ngb-toast class="mt-3 text-right" *ngIf="show" header="Notifica di servizio" [autohide]="false" (hidden)="show=false">
+        Per inserire una provincia o un comune cliccare qui:
+        <button type="button" class="btn btn-outline-danger btn-sm my-1 w-100"><i class="bi bi-plus"></i></button>
+    </ngb-toast>
+    <form class="mt-5">
+        <h1 class="text-center">Inserire il nuovo Cliente</h1>
+        <h4 class="text-center mt-5">Dati Generali</h4>
+        <div class="form-row m-3">
+            <div class="col">
+                <input type="text" name="ragioneSociale" [(ngModel)]="cliente.ragioneSociale" class="form-control"
+                    placeholder="Ragione Sociale">
+            </div>
+            <div class="col">
+                <input type="text" name="partitaIva" [(ngModel)]="cliente.partitaIva" class="form-control" placeholder="Partita Iva">
+            </div>
+            <div class="col">
+                <input type="text" name="tipoCliente" [(ngModel)]="cliente.tipoCliente" class="form-control" placeholder="Tipo Cliente">
+            </div>
+        </div>
+        <div class="form-row m-3">
+            <div class="col">
+                <input type="text" name="email" [(ngModel)]="cliente.email" class="form-control" placeholder="Email">
+            </div>
+            <div class="col">
+                <input type="text" name="pec" [(ngModel)]="cliente.pec" class="form-control" placeholder="Pec">
+            </div>
+            <div class="col">
+                <input type="text" name="telefono" [(ngModel)]="cliente.telefono" class="form-control" placeholder="Telefono">
+            </div>
+        </div>
+        <div class="form-row m-3">
+            <div class="col">
+                <input type="text" name="nomeContatto" [(ngModel)]="cliente.nomeContatto" class="form-control" placeholder="Nome Contatto">
+            </div>
+            <div class="col">
+                <input type="text" name="cognomeContatto" [(ngModel)]="cliente.cognomeContatto" class="form-control"
+                    placeholder="Cognome Contatto">
+            </div>
+            <div class="col">
+                <input type="text" name="telefonoContatto" [(ngModel)]="cliente.telefonoContatto" class="form-control"
+                    placeholder="Telefono Contatto">
+            </div>
+            <div class="col">
+                <input type="text" name="emailContatto" [(ngModel)]="cliente.emailContatto" class="form-control"
+                    placeholder="Email Contatto">
+            </div>
+        </div>
+        <h4 class="text-center">Dati di indirizzo Sede Operativa</h4>
+        <div class="form-row m-3">
+            <div class="col-4">
+                <input type="text" name="indirizzoSedeOperativaVia" [(ngModel)]="cliente.indirizzoSedeOperativa.via" class="form-control"
+                    placeholder="Via">
+            </div>
+            <div class="col-1">
+                <input type="text" name="indirizzoSedeOperativaCiv" [(ngModel)]="cliente.indirizzoSedeOperativa.civico" class="form-control"
+                    placeholder="Civico">
+            </div>
+            <div class="col-1">
+                <input type="text" name="indirizzoSedeOperativaCap" [(ngModel)]="cliente.indirizzoSedeOperativa.cap" class="form-control"
+                    placeholder="Cap">
+            </div>
+            <div class="col-2">
+                <input type="text" name="indirizzoSedeOperativaLoc" [(ngModel)]="cliente.indirizzoSedeOperativa.localita" class="form-control"
+                    placeholder="Località">
+            </div>
+            <div class="col-2">
+                <select id="inputState" (ngModelChange)="onChangeObj_oper($event)" [(ngModel)]="cliente.indirizzoSedeOperativa.comune.provincia" [ngModelOptions]="{standalone: true}" class="form-control">
+                    <option selected>Provincia</option>
+                    <option [ngValue]="provincia" *ngFor="let provincia of province_oper">{{provincia.sigla}}</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <select id="inputState" [(ngModel)]="cliente.indirizzoSedeOperativa.comune" [ngModelOptions]="{standalone: true}" class="form-control">
+                    <option selected>Comune</option>
+                    <option [ngValue]="comune" *ngFor="let comune of comuni_oper">{{comune.nome}}</option>
+                </select>
+            </div>
+        </div>
+        <h4 class="text-center">Dati di indirizzo Sede Legale</h4>
+        <div class="form-row m-3">
+            <div class="col-4">
+                <input type="text" name="indirizzoSedeLegaleVia" [(ngModel)]="cliente.indirizzoSedeLegale.via" class="form-control" placeholder="Via">
+            </div>
+            <div class="col-1">
+                <input type="text" name="indirizzoSedeLegaleCiv" [(ngModel)]="cliente.indirizzoSedeLegale.civico" class="form-control"
+                    placeholder="Civico">
+            </div>
+            <div class="col-1">
+                <input type="text" name="indirizzoSedeLegaleCap" [(ngModel)]="cliente.indirizzoSedeLegale.cap" class="form-control" placeholder="Cap">
+            </div>
+            <div class="col-2">
+                <input type="text" name="indirizzoSedeLegaleLoc" [(ngModel)]="cliente.indirizzoSedeLegale.localita" class="form-control"
+                    placeholder="Località">
+            </div>
+            <div class="col-2">
+                <select id="inputState" (ngModelChange)="onChangeObj_legale($event)" [(ngModel)]="cliente.indirizzoSedeLegale.comune.provincia" [ngModelOptions]="{standalone: true}" class="form-control">
+                    <option selected>Provincia</option>
+                    <option [ngValue]="provincia" *ngFor="let provincia of province_legale">{{provincia.sigla}}</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <select id="inputState" [(ngModel)]="cliente.indirizzoSedeLegale.comune" [ngModelOptions]="{standalone: true}" class="form-control">
+                    <option selected>Comune</option>
+                    <option value="{{comune}}" *ngFor="let comune of comuni_legale">{{comune.nome}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <button type="button" class="btn btn-outline-danger" (click)="setCliente()">Inserisci Cliente</button>
+        </div>
+    </form>
+
+</div>
