@@ -1,0 +1,17 @@
+.PAGATA{ 
+    color: green;
+    border: 1px solid green;
+}
+
+.NON.PAGATA{
+    color:red;
+    border: 1px solid red;
+}
+
+.PAGATA:hover{ 
+    background-color: green;
+}
+
+.NON.PAGATA:hover{
+    background-color:red;
+}

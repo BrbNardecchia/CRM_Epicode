@@ -2,3 +2,28 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+
+.Personalform{
+    box-sizing: border-box;
+    margin: 20px;
+    background-color: #424242;
+    padding: 30px;
+    border:2px solid black;
+    border-radius: 15px;
+    /* box-shadow:0 12px 15px 0 #b60163,0 17px 50px 0 #b60163; */
+}
+.btn_fucsia{ 
+    background-color: #b60163;
+    border: 1px solid #b60163
+}
+
+.btn_fucsia:hover{
+    background-color: #d80977;
+
+}

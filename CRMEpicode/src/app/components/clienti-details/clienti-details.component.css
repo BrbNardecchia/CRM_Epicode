@@ -1,0 +1,10 @@
+.col{
+    padding:10px;
+    background-color:#808080;
+    border : 1px solid black;
+    font-size: 15px;
+}
+
+.col b {
+    color:black;
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Cliente } from 'src/app/classes/classes';
 import { IClienti } from 'src/app/interfaces/iclienti';
 import { IComuni } from 'src/app/interfaces/icomuni';
 import { IProvince } from 'src/app/interfaces/iprovince';
@@ -13,77 +15,75 @@ import { ProvinceService } from 'src/app/services/province.service';
 })
 export class ClientFormComponent implements OnInit {
 
-  cliente: IClienti = {
-    ragioneSociale: '',
-    partitaIva: 0,
-    tipoCliente: '',
-    email: '',
-    pec: '',
-    telefono: '',
-    nomeContatto: '',
-    cognomeContatto: '',
-    telefonoContatto: '',
-    emailContatto: '',
-    indirizzoSedeOperativa: {
-      via: '',
-      civico: '',
-      cap: '',
-      localita: '',
-      comune: {
-        nome: '',
-        provincia: {
-          nome: '',
-          sigla: ''
-        }
-      }
-    },
-    indirizzoSedeLegale: {
-      via: '',
-      civico: '',
-      cap: '',
-      localita: '',
-      comune: {
-        nome: '',
-        provincia: {
-          nome: '',
-          sigla: '',
-        }
-      }
-    }
-  }
-  
   show = true;
-  comuni: IComuni[] = [];
-  province: IProvince[] = [];
+
+  cliente : IClienti = new Cliente();  
+  
   provinciaSelected: IProvince ={
     nome: '',
     sigla: ''
   };
-  
 
+  titoloForm: string = '';
+  set_btn: string = '';
+
+  tipiCliente : string[] =[];
+  
   comuni_legale: IComuni[] = [];
   comuni_oper: IComuni[] = [];
+
   province_legale: IProvince[] = [];
   province_oper: IProvince[] = [];
 
   constructor(
     private comuniService: ComuniService,
     private provinceService: ProvinceService,
-    private clientiService: ClientiService) { }
+    private clientiService: ClientiService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe(element=>{
+      if(!element.id){
+        this.titoloForm = 'Inserire il nuovo Cliente';
+        this.set_btn = 'Inserisci Cliente'
+      }
+      else{
+        this.titoloForm = 'Effettua le modifiche al cliente selezionato';
+        this.set_btn = 'Modifica Cliente'
+        this.clientiService.getClienteById(element.id).subscribe(cliente =>{ 
+          this.cliente = cliente;
+          console.log(cliente)
+        })
+      }
+    });
+    
     this.provinceService.getAllProvince()
     .subscribe(resp => {
-      this.province = resp.content; 
       this.province_legale = resp.content; 
       this.province_oper = resp.content; 
       this.showComuni_oper();
       this.showComuni_legale();
     })
+    this.clientiService.getTipiCliente().subscribe(resp => this.tipiCliente = resp);
   }
 
   setCliente(){
-    console.log(this.cliente)
+    this.route.params.subscribe(element=>{
+      if(!element.id){
+        this.clientiService.createCliente(this.cliente).subscribe(resp => {
+          console.log(resp);
+          this.router.navigate(['clienti']);
+        })
+      }
+      else{
+        this.clientiService.updateClienteById(this.cliente).subscribe(resp => {
+          console.log(resp);
+          this.router.navigate(['clienti']);
+        });
+        }
+      }
+    )
   }
 
   onChangeObj_oper(provincia: IProvince){
@@ -104,7 +104,10 @@ export class ClientFormComponent implements OnInit {
     this.comuni_legale = this.comuniService.getComuneByProvince(this.provinciaSelected);
   }
 
-
+  goToAddCandP(){
+    // localStorage dati inseriti
+    this.router.navigate(['addcliente/addcomprov'])
+  }
 }
 
 

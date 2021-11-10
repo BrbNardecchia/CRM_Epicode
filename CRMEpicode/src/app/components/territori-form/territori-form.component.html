@@ -1,1 +1,41 @@
-<p>territori-form works!</p>
+<ngb-toast class="mt-3 text-center text-dark mt-3 mx-4" *ngIf="show" header="Istruzioni" [autohide]="false"
+(hidden)="show=false">
+Per inserire una provincia inserire nome e sigla e premere su <b>"Inserisci Provincia"</b>
+</ngb-toast>
+<ngb-toast class="mt-3 text-center text-dark mt-3 mx-4" *ngIf="show" header="Istruzioni" [autohide]="false"
+(hidden)="show=false">
+Per inserire un comune selezionare la provincia nel menù a tendina e inserire il nome e premere su <b>"Inserisci Comune"</b>
+</ngb-toast>
+<div class="container mt-5">
+    <div class="row ">
+        <div class="col Personalform">
+            <form class="text-center">
+                <h1 class="text-center">Provincia</h1>
+                <div class="form-group">
+                    <input type="text" name="nomeprov" [(ngModel)]="provinciaSelected.nome" oninput="this.value = this.value.toUpperCase()" class="form-control" placeholder="Inserisci Nome Provincia">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="siglaprov" [(ngModel)]="provinciaSelected.sigla" oninput="this.value = this.value.toUpperCase()" class="form-control" placeholder="Inserisci Sigla Provincia">
+                </div>
+                <button (click)="addProvincia()" class="btn btn_fucsia mt-3">Inserisci Provincia</button>
+            </form>
+        </div>
+        <div class="col Personalform">
+            <form class="text-center">
+                <h1 class="text-center">Comune</h1>
+                <div class="form-group">
+                    <select id="inputState" (ngModelChange)="onChangeProvincia($event)" (ngModel)="provinciaSelected"
+                        [ngModelOptions]="{standalone: true}" class="form-control">
+                        <option selected>Provincia</option>
+                        <option [ngValue]="provincia" *ngFor="let provincia of province">{{provincia.sigla}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="nomecomun" [(ngModel)]="comune.nome" oninput="this.value = this.value.toUpperCase()" class="form-control" placeholder="Inserisci Nome Comune">
+                </div>
+                <button (click)="addComune()" class="btn btn_fucsia mt-3">Inserisci Comune</button>
+            </form>
+        </div>
+    </div>
+</div>

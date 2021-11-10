@@ -1,7 +1,7 @@
 export interface IClienti {
     id?: number,
     ragioneSociale: string,
-    partitaIva: number,
+    partitaIva: string,
     tipoCliente: string,
     email: string,
     pec: string,

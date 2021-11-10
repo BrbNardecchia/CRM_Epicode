@@ -10,25 +10,33 @@ import { IClienti } from '../interfaces/iclienti';
 
 export class ClientiService {
 
-  urlAPI = environment.serverAddress + 'api/clienti';
+  urlAPI = environment.serverAddress + 'api/clienti/';
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   getAllClient() {
-    return this.http.get<IObjClienti>(this.urlAPI + '?page=0&size=20&sort=id,ASC');
+    return this.http.get<IObjClienti>(environment.serverAddress + 'api/clienti?page=0&size=20&sort=id,DESC');
   }
 
-  createCliente(nuovoCliente: IClienti){
+  getClienteById(id: number){
+    return this.http.get<IClienti>(this.urlAPI + id);
+  }
+
+  createCliente(nuovoCliente: IClienti) {
     return this.http.post(this.urlAPI, nuovoCliente)
   }
 
-  // getTipiCliente(){
-  //   return this.http.get<string[]>(this.serverAddress + 'tipicliente');
-  // }
+  getTipiCliente() {
+    return this.http.get<string[]>(this.urlAPI + 'tipicliente');
+  }
 
-  // getClienteById(id: number){
-  //   return this.http.get<IClienti>(this.serverAddress + id);
-  // }
+  deleteClienteById(id: number) {
+    return this.http.delete(this.urlAPI + id);
+  }
+
+  updateClienteById(modificheCliente: IClienti){
+    return this.http.put(this.urlAPI + modificheCliente.id, modificheCliente);
+  }
 
   // getClientiByMoneybet(value1: number, value2: number){
   //   return this.http.get<IClienti[]>(this.serverAddress + 'fatturatoannuale?from=' + value1 + '&to=' + value2);
@@ -46,13 +54,9 @@ export class ClientiService {
   //   return this.http.get<IClienti[]>(this.serverAddress + 'ragionesociale?nome=' + element);
   // }
 
-  // deleteClienteById(id: number){
-  //   return this.http.delete(this.serverAddress + id);
-  // }
 
-  // updateClienteById(modificheCliente: IClienti){
-  //   return this.http.put(this.serverAddress + modificheCliente.id, modificheCliente);
-  // }
+
+
 
 
 }

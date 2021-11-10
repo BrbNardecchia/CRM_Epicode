@@ -1,1 +1,31 @@
-<p>fatture works!</p>
+<div class="Personalform text-center">
+    <form class="mt-3">
+        <div class="form-group form-inline">
+            Cerca per anno: <input class="form-control ml-2" type="number" [(ngModel)]="searchFattura"
+                [ngModelOptions]="{standalone: true}" />
+        </div>
+    </form>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Anno</th>
+                <th scope="col">Importo</th>
+                <th scope="col">Stato</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fattura of fatture | fatturefilter: searchFattura; index as i"
+                class="{{fattura.stato.nome}}">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{fattura.anno}}</td>
+                <td>{{fattura.importo}}</td>
+                <td>{{fattura.stato.nome}}</td>
+                <td>{{fattura.cliente.ragioneSociale}}</td>
+                <td>{{fattura.data}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

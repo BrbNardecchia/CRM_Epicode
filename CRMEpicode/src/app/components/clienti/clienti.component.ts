@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IClienti } from 'src/app/interfaces/iclienti';
 import { ClientiService } from 'src/app/services/clienti.service';
 
@@ -17,20 +18,44 @@ export class ClientiComponent implements OnInit {
   clientiTotali: IClienti[] = [];
 
   constructor(
-    private clientiService: ClientiService) {  
-    }
+    private clientiService: ClientiService,
+    private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.aggiornaLista();
+  }
+
+  aggiornaLista(){
     this.clientiService.getAllClient().subscribe(resp => {
       this.Clienti = resp.content;
       this.collectionSize = this.Clienti.length;
       this.refreshClienti()
-    })}
+    })
+  }
 
   refreshClienti() {
     this.clientiTotali = this.Clienti
-      .map((country, i) => ({id: i + 1, ...country}))
+      .map((country, i) => ({ id: i + 1, ...country }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  deleteCliente(cliente : IClienti) {
+    console.log(cliente.id);
+    if (cliente.id) {
+      this.clientiService.deleteClienteById(cliente.id).subscribe(resp => {
+        console.log(resp);
+        this.aggiornaLista()});
+    }
+  }
+
+  updateCliente(cliente : IClienti) {
+    console.log(cliente.id);
+    this.router.navigate(['addcliente', cliente.id, 'edit'])
+  }
+
+  detailsCliente(cliente : IClienti) {
+    this.router.navigate(['clienti', cliente.id, 'details'])
   }
 
 }
