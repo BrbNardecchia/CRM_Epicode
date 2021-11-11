@@ -9,8 +9,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
 
-.Personalform{
+*{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+.Personalform{
     margin: 20px;
     background-color: #424242;
     padding: 30px;

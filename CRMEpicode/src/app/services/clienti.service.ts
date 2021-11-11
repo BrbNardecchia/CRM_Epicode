@@ -15,7 +15,7 @@ export class ClientiService {
   constructor(public http: HttpClient) { }
 
   getAllClient() {
-    return this.http.get<IObjClienti>(environment.serverAddress + 'api/clienti?page=0&size=20&sort=id,DESC');
+    return this.http.get<IObjClienti>(environment.serverAddress + 'api/clienti?page=0&size=100&sort=id,DESC');
   }
 
   getClienteById(id: number){
@@ -38,21 +38,21 @@ export class ClientiService {
     return this.http.put(this.urlAPI + modificheCliente.id, modificheCliente);
   }
 
-  // getClientiByMoneybet(value1: number, value2: number){
-  //   return this.http.get<IClienti[]>(this.serverAddress + 'fatturatoannuale?from=' + value1 + '&to=' + value2);
-  // }
+  getClientiByMoneybet(value1: number, value2: number){
+    return this.http.get<IClienti[]>(this.urlAPI + 'fatturatoannuale?from=' + value1 + '&to=' + value2);
+  }
 
-  // getClientiByDataInsbet(data1: string, data2: string){
-  //   return this.http.get<IClienti[]>(this.serverAddress + 'datainserimento?from=' + data1 + '&to=' + data2);
-  // }
+  getClientiByDataInsbet(data1: string, data2: string){
+    return this.http.get<IClienti[]>(this.urlAPI + 'datainserimento?from=' + data1 + '&to=' + data2);
+  }
 
-  // getClientiByDataContbet(data1: string, data2: string){
-  //   return this.http.get<IClienti[]>(this.serverAddress + 'datainserimento?from=' + data1 + '&to=' + data2);
-  // }
+  getClientiByDataContbet(data1: string, data2: string){
+    return this.http.get<IClienti[]>(this.urlAPI + 'datainserimento?from=' + data1 + '&to=' + data2);
+  }
 
-  // getClientiByRagSoc(element : string){
-  //   return this.http.get<IClienti[]>(this.serverAddress + 'ragionesociale?nome=' + element);
-  // }
+  getClientiByRagSoc(element : string){
+    return this.http.get<IClienti[]>(this.urlAPI + 'ragionesociale?nome=' + element);
+  }
 
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IClienti } from 'src/app/interfaces/iclienti';
 import { ClientiService } from 'src/app/services/clienti.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-clienti',
@@ -10,8 +11,11 @@ import { ClientiService } from 'src/app/services/clienti.service';
 })
 export class ClientiComponent implements OnInit {
 
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
   page = 1;
-  pageSize = 5;
+  pageSize = 12;
   Clienti: IClienti[] = [];
   collectionSize = 0
 

@@ -67,7 +67,7 @@ export class FirstChartsComponent implements OnInit {
             },
             name: 'Nightingale Chart',
             type: 'pie',
-            radius: [70, 200],
+            radius: [70, 130],
             center: ['50%', '50%'],
             roseType: 'area',
             itemStyle: {

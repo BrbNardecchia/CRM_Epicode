@@ -9,7 +9,6 @@ import { FattureFormComponent } from './components/fatture-form/fatture-form.com
 import { FattureComponent } from './components/fatture/fatture.component';
 import { LoginComponent } from './components/login/login.component';
 import { TerritoriFormComponent } from './components/territori-form/territori-form.component';
-import { TerritorioComponent } from './components/territorio/territorio.component';
 
 const routes: Routes = [
   {
@@ -56,10 +55,6 @@ const routes: Routes = [
   {
     path: 'contabilita', 
     component: FattureComponent
-  },
-  {
-    path: 'territorio', 
-    component: TerritorioComponent
   },
   {
     path: 'addcliente/addcomprov', 

@@ -1,31 +1,115 @@
-<div class="Personalform text-center">
-    <form class="mt-3">
-        <div class="form-group form-inline">
-            Cerca per anno: <input class="form-control ml-2" type="number" [(ngModel)]="searchFattura"
-                [ngModelOptions]="{standalone: true}" />
+<div class="text-center">
+    <div class="row Personalform ">
+        <div class="w-100 text-center mb-4">
+            <h1>Ottieni Fatture modificate tra due Date</h1>
         </div>
-    </form>
-    <table class="table table-light">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Anno</th>
-                <th scope="col">Importo</th>
-                <th scope="col">Stato</th>
-                <th scope="col">Cliente</th>
-                <th scope="col">Data</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let fattura of fatture | fatturefilter: searchFattura; index as i"
-                class="{{fattura.stato.nome}}">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>{{fattura.anno}}</td>
-                <td>{{fattura.importo}}</td>
-                <td>{{fattura.stato.nome}}</td>
-                <td>{{fattura.cliente.ragioneSociale}}</td>
-                <td>{{fattura.data}}</td>
-            </tr>
-        </tbody>
-    </table>
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                <input matStartDate formControlName="start" placeholder="Start date">
+                <input matEndDate formControlName="end" placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+        </mat-form-field>
+        <table class="table table-striped bg-light">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ragione Sociale</th>
+                    <th scope="col">Tipo Cliente</th>
+                    <th scope="col">Contatto</th>
+                    <th scope="col">Telefono Contatto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">0</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row Personalform">
+        <div class="w-100 text-center mb-4">
+            <h1>Ottieni Fatture modificate tra due Importi</h1>
+            <mat-form-field class="mx-5" appearance="outline">
+                <mat-label>Importo Min</mat-label>
+                <input matInput #number placeholder="Importo Min" value="9000">
+            </mat-form-field>
+            <button type="button" class="btn btn_fucsia">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                    class="bi bi-download" viewBox="0 0 16 16">
+                    <path
+                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                    <path
+                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                </svg>
+            </button>
+            <mat-form-field class="mx-5" appearance="outline">
+                <mat-label>Importo Max</mat-label>
+                <input matInput #number placeholder="Importo Max" value="10000">
+            </mat-form-field>
+        </div>
+        <table class="table table-striped bg-light">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ragione Sociale</th>
+                    <th scope="col">Tipo Cliente</th>
+                    <th scope="col">Contatto</th>
+                    <th scope="col">Telefono Contatto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">0</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row Personalform">
+        <div class="w-100 text-center mb-4">
+            <h1>Ottieni Fatture</h1>
+            <h4>Scegli tu i campi di selezione</h4>
+        </div>
+        <mat-form-field appearance="outline">
+            <mat-label>Toppings</mat-label>
+            <mat-select [formControl]="toppings" multiple>
+              <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <table class="table table-striped bg-light">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ragione Sociale</th>
+                    <th scope="col">Tipo Cliente</th>
+                    <th scope="col">Contatto</th>
+                    <th scope="col">Telefono Contatto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">0</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

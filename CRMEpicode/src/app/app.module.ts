@@ -12,7 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CrmHomeComponent } from './components/crm-home/crm-home.component';
 import { FattureComponent } from './components/fatture/fatture.component';
-import { TerritorioComponent } from './components/territorio/territorio.component';
 import { LoginComponent } from './components/login/login.component';
 import { ClientiComponent } from './components/clienti/clienti.component';
 import { TablesClientComponent } from './components/tables-client/tables-client.component';
@@ -43,6 +42,7 @@ import { FattureClienteComponent } from './components/fatture-cliente/fatture-cl
 import {MatSelectModule} from '@angular/material/select';
 import { EchartsxModule } from 'echarts-for-angular';
 import { FatturatoEchartsComponent } from './components/fatturato-echarts/fatturato-echarts.component';
+import { CardsComponent } from './components/cards/cards.component';
 
 
 @NgModule({
@@ -50,7 +50,6 @@ import { FatturatoEchartsComponent } from './components/fatturato-echarts/fattur
     AppComponent,
     CrmHomeComponent,
     FattureComponent,
-    TerritorioComponent,
     LoginComponent,
     ClientiComponent,
     TablesClientComponent,
@@ -63,7 +62,8 @@ import { FatturatoEchartsComponent } from './components/fatturato-echarts/fattur
     SidebarNavComponent,
     ClientiDetailsComponent,
     FattureClienteComponent,
-    FatturatoEchartsComponent
+    FatturatoEchartsComponent,
+    CardsComponent
   ],
   imports: [
     EchartsxModule,
