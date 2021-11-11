@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  mostra = true
   events: string[] = [];
   opened: boolean = true;
   title = 'CRMEpicode';

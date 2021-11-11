@@ -13,13 +13,16 @@ import { ProvinceService } from 'src/app/services/province.service';
 export class TerritoriFormComponent implements OnInit {
   province: IProvince[] = [];
   show = true;
+  com = false;
+  prov = false;
 
-  provinciaSelected: IProvince ={
+  name: any;
+  provinciaSelected: IProvince = {
     nome: '',
     sigla: ''
   };
 
-  comune: IComuni ={
+  comune: IComuni = {
     nome: '',
     provincia: {
       nome: '',
@@ -43,21 +46,32 @@ export class TerritoriFormComponent implements OnInit {
     this.comune.provincia = this.provinciaSelected;
   }
 
-  addProvincia(){
-    console.log(this.provinciaSelected)
-    this.provinceService.createProvincia(this.provinciaSelected).subscribe(resp => this.getProvince())
+  addProvincia() {
+    if (this.provinciaSelected.nome && this.provinciaSelected.sigla) {
+      this.prov = false
+      this.provinceService.createProvincia(this.provinciaSelected).subscribe(resp => this.getProvince())
+      
+    }
+    else {
+        this.prov = true
+    }
   }
 
-  addComune(){
-    console.log(this.comune)
+  addComune() {
+    this.com = false
+    if(this.provinciaSelected && this.comune.nome){
     this.comuniService.createComune(this.comune).subscribe(resp => console.log(resp))
   }
+  else{
+    this.com = true
+  }
+}
 
-  getProvince(){
+  getProvince() {
     this.provinceService.getAllProvince()
-    .subscribe(resp => {
-      this.province = resp.content;
-    })
+      .subscribe(resp => {
+        this.province = resp.content;
+      })
   }
 
 

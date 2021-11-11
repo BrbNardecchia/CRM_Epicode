@@ -23,16 +23,16 @@
           <td class="text-right">
             <button type="button" (click)="detailsCliente(cliente)" class="btn btn-outline-dark mx-1"><i
                 class="bi bi-file-earmark-spreadsheet"></i></button>
-            <button type="button" (click)="updateCliente(cliente)" class="btn btn-outline-info mx-1"><i
+            <button *ngIf="mostra" type="button" (click)="updateCliente(cliente)" class="btn btn-outline-info mx-1"><i
                 class="bi bi-pencil-square"></i></button>
-            <button type="button" (click)="deleteCliente(cliente)" class="btn btn-outline-danger mx-1"><i
+            <button *ngIf="mostra" type="button" (click)="deleteCliente(cliente)" class="btn btn-outline-danger mx-1"><i
                 class="bi bi-trash"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="d-flex justify-content-between p-2">
-      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+      <ngb-pagination  [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
         (pageChange)="refreshClienti()">
       </ngb-pagination>
 
@@ -43,38 +43,5 @@
       </select>
     </div>
   </div>
-</div>
-<div class="row Personalform">
-  <div class="w-100 text-center mb-4">
-      <h1>Ottieni Clienti</h1>
-      <h4>Scegli tu i campi di selezione</h4>
-  </div>
-  <mat-form-field appearance="outline">
-      <mat-label>Toppings</mat-label>
-      <mat-select [formControl]="toppings" multiple>
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  <table class="table table-striped bg-light">
-      <thead>
-          <tr>
-              <th scope="col">#</th>
-              <th scope="col">Ragione Sociale</th>
-              <th scope="col">Tipo Cliente</th>
-              <th scope="col">Contatto</th>
-              <th scope="col">Telefono Contatto</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <th scope="row">0</th>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-
-          </tr>
-      </tbody>
-  </table>
 </div>
 </div>

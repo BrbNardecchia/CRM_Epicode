@@ -18,17 +18,19 @@ export class FattureComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
+  //between value
   maxValue = 0
   minValue = 0
-
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  commento1 = '';
+  commento2 = '';
 
   dataFatture :number[] = [];
+
   fatture_perData :IFatture[] = [];
   fatture_perValore :IFatture[] = [];
   fatture_find :IFatture[] = [];
   fatture :IFatture[] = [];
+
   searchFattura: number = 0 ;
 
   constructor(
@@ -42,15 +44,18 @@ export class FattureComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.commento1 = '';
+    this.commento2 = '';
   }
 
   clearFatture1(){
-    this.fatture_perData = []
+    this.fatture_perData = [];
+    this.commento1 = '';
   }
 
   clearFatture2(){
     this.fatture_perValore = []
+    this.commento2 = '';
     this.maxValue = 0
     this.minValue = 0
   }
@@ -58,7 +63,10 @@ export class FattureComponent implements OnInit {
   getFattureByValues(){
     this.fattureService.getFatturaByIdImpBet(this.minValue,this.maxValue).subscribe(resp => {
       console.log(resp.content);
-      this.fatture_perValore = resp.content})
+      this.fatture_perValore = resp.content;
+      if(this.fatture_perValore.length == 0){
+        this.commento2 ='Non ci sono fatture per questo range di valori';
+    }})
   }
 
   getFattureByRangeDate(){
@@ -66,8 +74,10 @@ export class FattureComponent implements OnInit {
       let data1 = this.changeFormatwithdot(this.fromDate.year,this.fromDate.month,this.fromDate.day)
       let data2 = this.changeFormatwithdot(this.toDate.year,this.toDate.month,this.toDate.day)
       this.fattureService.getFatturaByDataBet(data1,data2).subscribe(resp => {
-        console.log(resp.content);
-        this.fatture_perData = resp.content})
+        this.fatture_perData = resp.content;
+        if(this.fatture_perData.length == 0){
+          this.commento1 = 'Non ci sono fatture fra queste due date'
+        }})
     }
 
   }

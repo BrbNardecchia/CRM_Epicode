@@ -4,8 +4,8 @@ export interface IClienti {
     partitaIva: string,
     tipoCliente: string,
     email: string,
-    pec: string,
-    telefono: string,
+    pec?: string,
+    telefono?: string,
     nomeContatto: string,
     cognomeContatto: string,
     telefonoContatto: string,
@@ -14,8 +14,8 @@ export interface IClienti {
         id?: number,
         via: string,
         civico: string,
-        cap: string,
-        localita: string,
+        cap?: string,
+        localita?: string,
         comune: {
             id?: number,
             nome: string,
@@ -30,8 +30,8 @@ export interface IClienti {
         id?: number,
         via: string,
         civico: string,
-        cap: string,
-        localita: string,
+        cap?: string,
+        localita?: string,
         comune: {
             id?: number,
             nome: string,
@@ -44,5 +44,5 @@ export interface IClienti {
     },
     dataInserimento?: string,
     dataUltimoContatto?: string,
-    fatturatoAnnuale?: number
+    fatturatoAnnuale: number
 }

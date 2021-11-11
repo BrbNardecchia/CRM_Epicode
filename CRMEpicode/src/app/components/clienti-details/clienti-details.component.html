@@ -41,6 +41,11 @@
         <div class="col"><p><b>Comune: </b></p>{{cliente.indirizzoSedeLegale.comune.nome }}</div>
         <div class="col"><p><b>Provincia: </b></p>{{cliente.indirizzoSedeLegale.comune.provincia.nome }} ({{cliente.indirizzoSedeLegale.comune.provincia.sigla }})</div>
     </div>
+    <div class="row">
+        <div class="col">
+            <p><b>Fatturato Annuale: </b></p>{{cliente.fatturatoAnnuale }}
+        </div>
+    </div>
     <div class="container mt-5">
         <button (click)="detagliFattura(cliente)" type="button" class="btn btn_fucsia mx-1"><span class="mr-4">Visualizza Fatture</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-cash"

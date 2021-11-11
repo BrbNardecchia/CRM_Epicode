@@ -4,8 +4,6 @@ export class Cliente {
     partitaIva: string;
     tipoCliente: string;
     email: string;
-    pec: string;
-    telefono: string;
     nomeContatto: string;
     cognomeContatto: string;
     telefonoContatto: string;
@@ -13,8 +11,6 @@ export class Cliente {
     indirizzoSedeOperativa: {
         via: string;
         civico: string;
-        cap: string;
-        localita: string;
         comune: {
             nome: string;
             provincia: {
@@ -26,8 +22,6 @@ export class Cliente {
     indirizzoSedeLegale: {
         via: string;
         civico: string;
-        cap: string;
-        localita: string;
         comune: {
             nome: string;
             provincia: {
@@ -36,13 +30,12 @@ export class Cliente {
             }
         }
     }
+    fatturatoAnnuale: number
     constructor() {
         this.ragioneSociale = '';
         this.partitaIva = '';
         this.tipoCliente = '';
         this.email = '';
-        this.pec = '';
-        this.telefono = '';
         this.nomeContatto = '';
         this.cognomeContatto = '';
         this.telefonoContatto = '';
@@ -50,8 +43,6 @@ export class Cliente {
         this.indirizzoSedeOperativa = {
             via : '',
             civico: '',
-            cap: '',
-            localita: '',
             comune: {
                 nome: '',
                 provincia: {
@@ -64,8 +55,6 @@ export class Cliente {
         this.indirizzoSedeLegale = {
             via : '',
             civico: '',
-            cap: '',
-            localita: '',
             comune: {
                 nome: '',
                 provincia: {
@@ -75,5 +64,6 @@ export class Cliente {
             }
 
         }
+        this.fatturatoAnnuale = 0
     }
 }

@@ -72,6 +72,8 @@ export class FirstChartsComponent implements OnInit {
         },
         series: [
           {
+            colorBy: 'data',
+            color: '#b60163',
             data: this.tipiCliente,
             type: 'bar',
             showBackground: true,
@@ -79,9 +81,7 @@ export class FirstChartsComponent implements OnInit {
         ],
 
       };
-    },1000);
-
+    },2000);
   }
-
 }
 

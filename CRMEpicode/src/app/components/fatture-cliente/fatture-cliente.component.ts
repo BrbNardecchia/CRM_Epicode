@@ -11,12 +11,9 @@ import { ClientiService } from 'src/app/services/clienti.service';
   styleUrls: ['./fatture-cliente.component.css']
 })
 export class FattureClienteComponent implements OnInit {
+
+  mostra = true;
   titolo = ''
-  stato = 'paga';
-  toppings = new FormControl();
-
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
   fatture: IFatture[] = []
 
   constructor(
@@ -32,9 +29,13 @@ export class FattureClienteComponent implements OnInit {
   refreshFatture() {
     this.route.params.subscribe(element => {
       this.fattureService.getFattureByClient(element.id).subscribe(resp => {
-        console.log(resp.content)
         this.fatture = resp.content;
-        this.titolo = this.fatture[0].cliente.ragioneSociale;
+          if(this.fatture[0]){
+            this.titolo = this.fatture[0].cliente.ragioneSociale;
+          }
+          else{
+            this.router.navigate(['/addfattura']);
+          }
       })
     })
   }

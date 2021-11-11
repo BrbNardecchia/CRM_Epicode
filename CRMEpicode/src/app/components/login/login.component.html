@@ -1,1 +1,32 @@
-<p>login works!</p>
+<div class="row mt-5">
+    <div class="mx-auto">
+        <div class="card">
+            <div class="login-box">
+                <div class="login-snip">
+                    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label> <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+                    <div class="login-space">
+                        <div class="login">
+                            <div class="group"> <label for="user" class="label">Username</label> <input [(ngModel)]="logIn.username" id="user" type="text" class="input" placeholder="Inserisci il tuo username"></div>
+                            <div class="group"> <label for="pass" class="label">Password</label> <input [(ngModel)]="logIn.password" id="pass" type="password" class="input" data-type="password" placeholder="Inserisci la tua password"></div>
+                            <div class="group"> 
+                                <button type="button" (click) ="login()" class="button mt-5" >Sign In</button>
+                            </div>
+                            <div class="hr"></div>
+                        </div>
+                        <div class="sign-up-form">
+                            <div class="group"> <label for="nome" class="label">Nome</label> <input [(ngModel)]="singUp.nome" id="nome" type="nome" class="input" placeholder="Inserisci il tuo nome"> </div>
+                            <div class="group"> <label for="cognome" class="label">Cognome</label> <input [(ngModel)]="singUp.cognome"  id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome"> </div>
+                            <div class="group"> <label for="email" class="label">Email</label> <input [(ngModel)]="singUp.email" id="email" type="text" class="input" placeholder="Inserisci la tua email"> </div>
+                            <div class="group"> <label  for="user" class="label">Username</label> <input [(ngModel)]="singUp.username" id="userlogin" type="text" class="input" placeholder="Crea il tuo Username"> </div>
+                            <div class="group"> <label  for="pass" class="label">Password</label> <input [(ngModel)]="singUp.password" id="passlogin" type="password" class="input" data-type="password" placeholder="Crea la tua password"> </div>
+                            <div class="group"> 
+                                <button type="button" (click) ="singup()" class="button mt-5" >Sign Up</button>
+                            </div>
+                            <div class="hr"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

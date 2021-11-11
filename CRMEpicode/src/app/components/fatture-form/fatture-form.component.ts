@@ -7,6 +7,7 @@ import { FattureService } from 'src/app/services/fatture.service';
 import { StatoFatturaService } from 'src/app/services/stato-fattura.service';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cliente } from 'src/app/classes/classes';
 
 @Component({
   selector: 'app-fatture-form',
@@ -15,55 +16,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class FattureFormComponent implements OnInit {
 
-  cliente: IClienti = {
-    ragioneSociale: '',
-    partitaIva: '',
-    tipoCliente: '',
-    email: '',
-    pec: '',
-    telefono: '',
-    nomeContatto: '',
-    cognomeContatto: '',
-    telefonoContatto: '',
-    emailContatto: '',
-    indirizzoSedeOperativa: {
-      via: '',
-      civico: '',
-      cap: '',
-      localita: '',
-      comune: {
-        nome: '',
-        provincia: {
-          nome: '',
-          sigla: ''
-        }
-      }
-    },
-    indirizzoSedeLegale: {
-      via: '',
-      civico: '',
-      cap: '',
-      localita: '',
-      comune: {
-        nome: '',
-        provincia: {
-          nome: '',
-          sigla: '',
-        }
-      }
-    }
-  }
+  cliente: IClienti = new Cliente();
   titolo: string = 'Inserisci Nuova Fattura';
   button: string = 'Inserisci Fattura';
   show = true;
   show2 = false;
+  stato = false;
 
   model: NgbDateStruct = {
     year: 0,
     month: 0,
     day: 0
   };
-
 
   fattura: IFatture = {
     data: '',
@@ -74,9 +38,10 @@ export class FattureFormComponent implements OnInit {
     },
     cliente: this.cliente
   }
+
   statoFattura: IStatoFatture[] = []
   clienti: IClienti[] = [];
-  stato = false;
+
 
   constructor(
     private clientiService: ClientiService,
@@ -88,56 +53,51 @@ export class FattureFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.show2 = false;
     this.statoFatturaService.getAllStatiFatture().subscribe(resp => {
       this.statoFattura = resp.content;
-      console.log(this.statoFattura);
+      this.route.params.subscribe(element => {
+        if (!element.id) {
+          this.clientiService.getAllClient().subscribe(resp => {
+            this.stato = false;
+            this.titolo = 'Inserisci Nuova Fattura';
+            this.button = 'Inserisci Fattura';
+            this.clienti = resp.content;
+          })
+        }
+        else {
+          this.fattureService.getFatturaById(element.id).subscribe(fattura => {
+            this.stato = true;
+            this.titolo = 'Modifica Stato Fattura';
+            this.button = 'Modifica Fattura';
+            this.model = this.calendar.getToday();
+            this.fattura = fattura;
+          })
+        }
+      });
     }
     );
 
-    this.route.params.subscribe(element => {
-
-      if (!element.id) {
-        this.clientiService.getAllClient().subscribe(resp => {
-          this.clienti = resp.content;
-          console.log(this.clienti);
-          this.stato = false;
-          this.titolo = 'Inserisci Nuova Fattura';
-          this.button = 'Inserisci Fattura';
-          this.show2 = false;
-        })
-      }
-      else {
-        this.show2 = true;
-        this.fattureService.getFatturaById(element.id).subscribe(fattura => {
-          this.model = this.calendar.getToday();
-          this.fattura = fattura;
-          this.stato = true;
-          this.titolo = 'Modifica Stato Fattura';
-          this.button = 'Modifica Fattura';
-        })
-      }
-    });
   }
 
   setFattura() {
     this.route.params.subscribe(element => {
       if (!element.id) {
-        this.fattura.data = this.model.year + '-' + this.model.month + '-' + this.model.day;
-        console.log(this.fattura)
-        this.fattureService.createFattura(this.fattura).subscribe(resp => {
-          console.log(resp);
-          this.router.navigate(['/clienti'])
-        });
-
+        if (this.fattura.data && this.fattura.anno && this.fattura.importo && this.fattura.stato.nome && this.fattura.cliente.ragioneSociale) {
+          this.fattura.data = this.changeFormatwithbar(this.model.year, this.model.month, this.model.day)
+          this.fattureService.createFattura(this.fattura).subscribe(resp => {
+            this.router.navigate(['/clienti'])
+          });
+        }
+        else {
+          this.show2 = true;
+        }
       }
-      else {
-        console.log(this.model)
 
-        console.log(this.changeFormatwithbar(this.model.year,this.model.month, this.model.day))
-        this.fattura.data = this.changeFormatwithbar(this.model.year,this.model.month, this.model.day)
+      else {
         let fattura_put = {
           id: this.fattura.id,
-          data: this.fattura.data,
+          data: this.changeFormatwithbar(this.model.year, this.model.month, this.model.day),
           anno: this.fattura.anno,
           importo: this.fattura.importo,
           stato: {
@@ -149,11 +109,8 @@ export class FattureFormComponent implements OnInit {
           }
         }
         this.fattureService.updateFatturaById(fattura_put).subscribe(resp => {
-          console.log(fattura_put);
+          this.router.navigate(['/contabilita/' + this.fattura.cliente.id + '/detailsbyclient']);
         });
-
-        this.router.navigate(['/contabilita/'+ this.fattura.cliente.id +'/detailsbyclient'])
-
       }
     }
     )
@@ -169,9 +126,8 @@ export class FattureFormComponent implements OnInit {
     if (mese <= 9) {
       month = '0' + month
     }
-    return year + '-' + month + '-' + day 
+    return year + '-' + month + '-' + day
   }
-
 
   goToAddnewClient() {
     this.router.navigate(['addcliente'])

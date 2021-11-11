@@ -10,15 +10,13 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./clienti.component.css']
 })
 export class ClientiComponent implements OnInit {
-
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  mostra = true
 
   page = 1;
-  pageSize = 12;
-  Clienti: IClienti[] = [];
+  pageSize = 8;
   collectionSize = 0
 
+  Clienti: IClienti[] = [];
   clientiTotali: IClienti[] = [];
 
   constructor(
@@ -40,12 +38,11 @@ export class ClientiComponent implements OnInit {
 
   refreshClienti() {
     this.clientiTotali = this.Clienti
-      .map((country, i) => ({ id: i + 1, ...country }))
+      .map((cliente, i) => ({ id: i + 1, ...cliente }))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 
   deleteCliente(cliente : IClienti) {
-    console.log(cliente.id);
     if (cliente.id) {
       this.clientiService.deleteClienteById(cliente.id).subscribe(resp => {
         console.log(resp);
@@ -54,7 +51,6 @@ export class ClientiComponent implements OnInit {
   }
 
   updateCliente(cliente : IClienti) {
-    console.log(cliente.id);
     this.router.navigate(['addcliente', cliente.id, 'edit'])
   }
 

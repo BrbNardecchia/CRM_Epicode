@@ -16,9 +16,10 @@ import { ProvinceService } from 'src/app/services/province.service';
 export class ClientFormComponent implements OnInit {
 
   show = true;
+  show2 = false;
 
   cliente : IClienti = new Cliente();  
-  
+
   provinciaSelected: IProvince ={
     nome: '',
     sigla: ''
@@ -53,28 +54,53 @@ export class ClientFormComponent implements OnInit {
         this.set_btn = 'Modifica Cliente'
         this.clientiService.getClienteById(element.id).subscribe(cliente =>{ 
           this.cliente = cliente;
-          console.log(cliente)
         })
       }
+      this.clientiService.getTipiCliente().subscribe(resp => this.tipiCliente = resp);
+      this.provinceService.getAllProvince()
+      .subscribe(resp => {
+        this.province_legale = resp.content; 
+        this.province_oper = resp.content; 
+        this.showComuni_oper();
+        this.showComuni_legale();
+      })
     });
     
-    this.provinceService.getAllProvince()
-    .subscribe(resp => {
-      this.province_legale = resp.content; 
-      this.province_oper = resp.content; 
-      this.showComuni_oper();
-      this.showComuni_legale();
-    })
-    this.clientiService.getTipiCliente().subscribe(resp => this.tipiCliente = resp);
+
   }
 
   setCliente(){
     this.route.params.subscribe(element=>{
       if(!element.id){
-        this.clientiService.createCliente(this.cliente).subscribe(resp => {
-          console.log(resp);
-          this.router.navigate(['clienti']);
-        })
+        if(this.cliente.ragioneSociale && 
+          this.cliente.partitaIva && 
+          this.cliente.tipoCliente && 
+          this.cliente.email && 
+          this.cliente.nomeContatto && 
+          this.cliente.cognomeContatto && 
+          this.cliente.telefonoContatto && 
+          this.cliente.emailContatto && 
+          this.cliente.indirizzoSedeOperativa.via &&
+          this.cliente.indirizzoSedeOperativa.civico &&
+          this.cliente.indirizzoSedeOperativa.comune.nome &&
+          this.cliente.indirizzoSedeOperativa.comune.provincia.nome &&
+          this.cliente.indirizzoSedeOperativa.comune.provincia.sigla &&
+          this.cliente.indirizzoSedeLegale.via &&
+          this.cliente.indirizzoSedeLegale.civico &&
+          this.cliente.indirizzoSedeLegale.comune.nome &&
+          this.cliente.indirizzoSedeLegale.comune.provincia.nome &&
+          this.cliente.indirizzoSedeLegale.comune.provincia.sigla &&
+          this.cliente.fatturatoAnnuale
+          ){
+          this.show2 = false
+          this.clientiService.createCliente(this.cliente).subscribe(resp => {
+            console.log(resp);
+            this.router.navigate(['clienti']);
+          })
+        }
+        else{
+          this.show2 = true
+        }
       }
       else{
         this.clientiService.updateClienteById(this.cliente).subscribe(resp => {
@@ -88,7 +114,6 @@ export class ClientFormComponent implements OnInit {
 
   onChangeObj_oper(provincia: IProvince){
     this.provinciaSelected = provincia;
-    console.log(this.provinciaSelected);
     this.showComuni_oper();
   }
   onChangeObj_legale(provincia: IProvince){
@@ -97,7 +122,7 @@ export class ClientFormComponent implements OnInit {
   }
 
   showComuni_oper(){
-    this.comuni_oper = this.comuniService.getComuneByProvince(this.provinciaSelected);
+    this.comuni_oper = this.comuniService.getComuneByProvince(this.provinciaSelected)
   }
   
   showComuni_legale(){

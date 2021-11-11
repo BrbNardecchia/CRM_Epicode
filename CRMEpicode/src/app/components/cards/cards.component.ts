@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Cliente } from 'src/app/classes/classes';
 import { IClienti } from 'src/app/interfaces/iclienti';
 import { ClientiService } from 'src/app/services/clienti.service';
 
@@ -9,11 +10,17 @@ import { ClientiService } from 'src/app/services/clienti.service';
 })
 export class CardsComponent implements OnInit {
 
-  cliente: IClienti[] = []
+  clienti: IClienti[] = []
+  cliente = new Cliente;
   constructor(private clientiService: ClientiService) { }
 
   ngOnInit(): void {
-    this.clientiService.getClientiByMoneybet().subscribe(resp => this.cliente = resp.content)
+    this.clientiService.getClientiByMoneybet().subscribe(resp => {
+      this.clienti = resp.content
+      if(this.clienti[0]){
+        this.cliente= this.clienti[0]
+      }
+    })
   }
   
 }

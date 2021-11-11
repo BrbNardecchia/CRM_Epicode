@@ -14,7 +14,6 @@ import { CrmHomeComponent } from './components/crm-home/crm-home.component';
 import { FattureComponent } from './components/fatture/fatture.component';
 import { LoginComponent } from './components/login/login.component';
 import { ClientiComponent } from './components/clienti/clienti.component';
-import { TablesClientComponent } from './components/tables-client/tables-client.component';
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
 import { FattureFormComponent } from './components/fatture-form/fatture-form.component';
@@ -44,6 +43,7 @@ import { EchartsxModule } from 'echarts-for-angular';
 import { CardsComponent } from './components/cards/cards.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +51,6 @@ import { CardsComponent } from './components/cards/cards.component';
     FattureComponent,
     LoginComponent,
     ClientiComponent,
-    TablesClientComponent,
     TopNavComponent,
     ClientFormComponent,
     FattureFormComponent,

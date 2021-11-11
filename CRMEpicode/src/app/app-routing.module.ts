@@ -9,61 +9,74 @@ import { FattureFormComponent } from './components/fatture-form/fatture-form.com
 import { FattureComponent } from './components/fatture/fatture.component';
 import { LoginComponent } from './components/login/login.component';
 import { TerritoriFormComponent } from './components/territori-form/territori-form.component';
+import { RouteGuardService } from './services/route-guard.service';
 
 const routes: Routes = [
   {
-    path: 'dashboard', 
-    component: CrmHomeComponent
+    path: 'login', 
+    component: LoginComponent
   },
   { 
     path:'',
     pathMatch: 'full', 
-    redirectTo: 'dashboard'
+    redirectTo: 'login'
   },
   {
+    path: 'dashboard', 
+    component: CrmHomeComponent,
+    canActivate: [RouteGuardService]
+  },
+
+  {
     path: 'clienti', 
-    component: ClientiComponent
+    component: ClientiComponent,
+    canActivate: [RouteGuardService]
   },  
   {
     path: 'clienti/:id/details', 
-    component: ClientiDetailsComponent
+    component: ClientiDetailsComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'addcliente', 
-    component: ClientFormComponent
+    component: ClientFormComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'addcliente/:id/edit', 
-    component: ClientFormComponent
+    component: ClientFormComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'addfattura', 
-    component: FattureFormComponent
+    component: FattureFormComponent,
+    canActivate: [RouteGuardService]
   },  
   {
     path: 'addfattura/:id/edit', 
-    component: FattureFormComponent
+    component: FattureFormComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'contabilita/:id/detailsbyclient', 
-    component: FattureClienteComponent
+    component: FattureClienteComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'addcomprov', 
-    component: TerritoriFormComponent
+    component: TerritoriFormComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'contabilita', 
-    component: FattureComponent
+    component: FattureComponent,
+    canActivate: [RouteGuardService]
   },
   {
     path: 'addcliente/addcomprov', 
-    component: TerritoriFormComponent
+    component: TerritoriFormComponent,
+    canActivate: [RouteGuardService]
   },
-  {
-    path: 'login', 
-    component: LoginComponent
-  }
 
 ];
 

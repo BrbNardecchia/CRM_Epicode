@@ -1,7 +1,7 @@
 <div class="Personalform">
   <div class="text-center">
     <h1>Elenco fatture di <b>{{titolo}}</b></h1>
-    <button type="button" (click)="deleteAllFattureCliente()" class="btn btn-outline-danger mb-3 ">Elimina tutte le fatture del Cliente<i
+    <button *ngIf="mostra" type="button" (click)="deleteAllFattureCliente()" class="btn btn-outline-danger mb-3 ">Elimina tutte le fatture del Cliente<i
         class="bi bi-trash ml-3"></i></button>
   </div>
   <table class="table table-bordered bg-light text-center">
@@ -12,7 +12,7 @@
         <th>Cliente</th>
         <th scope="col">Importo</th>
         <th scope="col">Stato</th>
-        <th></th>
+        <th *ngIf="mostra"></th>
       </tr>
     </thead>
     <tbody>
@@ -22,8 +22,8 @@
         <td>{{fattura.cliente.ragioneSociale}}</td>
         <td>{{fattura.importo}}</td>
         <td>{{fattura.stato.nome}}</td>
-        <td style="width: 20%">
-          <button type="button" (click)="deleteFattura(fattura)" class="btn btn-outline-danger mx-1"><i
+        <td *ngIf="mostra" style="width: 20%">
+          <button   type="button" (click)="deleteFattura(fattura)" class="btn btn-outline-danger mx-1"><i
               class="bi bi-trash"></i></button>
           <button type="button" (click)="cambiaStatoFattura(fattura)" class="btn {{fattura.stato.nome}} mx-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear"

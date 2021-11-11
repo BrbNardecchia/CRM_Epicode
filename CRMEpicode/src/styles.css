@@ -9,11 +9,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
 
+
+
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+
+
 .Personalform{
     margin: 20px;
     background-color: #424242;
@@ -30,4 +36,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btn_fucsia:hover{
     background-color: #d80977;
 
+}
+
+input:required,select:required,textarea:required{
+    border:3px solid #da7bad;
+}
+
+
+ngb-toast{
+    height: 130px;
 }

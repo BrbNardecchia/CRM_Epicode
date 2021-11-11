@@ -21,7 +21,6 @@ export class ClientiDetailsComponent implements OnInit {
     this.route.params.subscribe(element => {
       this.clientiService.getClienteById(element.id).subscribe(cliente => {
         this.cliente = cliente;
-        console.log(cliente)
       })
     })
   }
