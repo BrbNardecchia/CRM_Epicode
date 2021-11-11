@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IClienti } from 'src/app/interfaces/iclienti';
+import { ClientiService } from 'src/app/services/clienti.service';
 
 @Component({
   selector: 'app-cards',
@@ -6,12 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
-  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`;
-  constructor() { }
+
+  cliente: IClienti[] = []
+  constructor(private clientiService: ClientiService) { }
 
   ngOnInit(): void {
+    this.clientiService.getClientiByMoneybet().subscribe(resp => this.cliente = resp.content)
   }
-
+  
 }

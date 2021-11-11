@@ -41,7 +41,6 @@ import { MatInputModule } from '@angular/material/input';
 import { FattureClienteComponent } from './components/fatture-cliente/fatture-cliente.component';
 import {MatSelectModule} from '@angular/material/select';
 import { EchartsxModule } from 'echarts-for-angular';
-import { FatturatoEchartsComponent } from './components/fatturato-echarts/fatturato-echarts.component';
 import { CardsComponent } from './components/cards/cards.component';
 
 
@@ -62,7 +61,6 @@ import { CardsComponent } from './components/cards/cards.component';
     SidebarNavComponent,
     ClientiDetailsComponent,
     FattureClienteComponent,
-    FatturatoEchartsComponent,
     CardsComponent
   ],
   imports: [

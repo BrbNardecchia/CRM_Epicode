@@ -4,15 +4,60 @@
             <h2 class="text-center">Tipi di Cliente (%)</h2>
             <app-first-charts></app-first-charts>
         </div>
-        <div class="Personalform col">
-            <h2 class="text-center">Clienti con maggior profitto</h2>
-            <app-fatturato-echarts></app-fatturato-echarts>
+        <div class="Personalform col-4">
+            <h2 class="text-center">Cliente con più fatturato annuale</h2>
+            <app-cards></app-cards>
         </div>
     </div>
     <div class="row">
         <div class="Personalform col">
-            <h2 class="text-center">Qualche Statistica</h2>
-            <app-cards></app-cards>
+            <h2 class="text-center">Cerca Clienti per ragione Sociale</h2>
+            <div class="row Personalform">
+                <div class="w-100">
+                <mat-form-field class="mr-5" appearance="outline">
+                    <mat-label>Cerca per Email:</mat-label>
+                    <input [(ngModel)]="email" matInput #number placeholder="Importo Min" value="9000">
+                </mat-form-field>
+                <mat-form-field class="mx-5" appearance="outline">
+                    <mat-label>Cerca per Cognome:</mat-label>
+                    <input [(ngModel)]="cognome" matInput  placeholder="Importo Min" value="">
+                </mat-form-field>
+                <button type="button" (click)="cercaCliente()" class="btn btn_fucsia float-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-download" viewBox="0 0 16 16">
+                        <path
+                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                        <path
+                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                    </svg>
+                </button>
+            </div>
+                  <table class="table table-striped bg-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">Numero</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Importo</th>
+                            <th scope="col">Stato</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                            <th style="width: 10%" scope="row"></th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="width: 20%">
+                              <button type="button" class="btn btn-outline-danger mx-1"><i
+                                  class="bi bi-trash"></i></button>
+                            </td>
+                          </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

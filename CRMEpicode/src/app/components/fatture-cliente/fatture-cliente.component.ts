@@ -11,7 +11,7 @@ import { ClientiService } from 'src/app/services/clienti.service';
   styleUrls: ['./fatture-cliente.component.css']
 })
 export class FattureClienteComponent implements OnInit {
-  titolo=''
+  titolo = ''
   stato = 'paga';
   toppings = new FormControl();
 
@@ -27,10 +27,9 @@ export class FattureClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshFatture();
-
   }
 
-  refreshFatture(){
+  refreshFatture() {
     this.route.params.subscribe(element => {
       this.fattureService.getFattureByClient(element.id).subscribe(resp => {
         console.log(resp.content)
@@ -44,7 +43,8 @@ export class FattureClienteComponent implements OnInit {
     if (fattura.id) {
       this.fattureService.deleteFatture(fattura.id).subscribe(resp => {
         console.log(resp);
-        this.refreshFatture()})
+        this.refreshFatture()
+      })
     }
   }
 
@@ -52,4 +52,12 @@ export class FattureClienteComponent implements OnInit {
     this.router.navigate(['addfattura', fattura.id, 'edit'])
   }
 
+  deleteAllFattureCliente() {
+    if (this.fatture[0].cliente.id) {
+      this.fattureService.deleteFattureByClient(this.fatture[0].cliente.id).subscribe(resp => {
+        console.log(resp);
+        this.refreshFatture();
+      })
+    }
+  }
 }

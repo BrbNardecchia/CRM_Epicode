@@ -5,7 +5,7 @@ import { IStatoFatture } from 'src/app/interfaces/istato-fatture';
 import { ClientiService } from 'src/app/services/clienti.service';
 import { FattureService } from 'src/app/services/fatture.service';
 import { StatoFatturaService } from 'src/app/services/stato-fattura.service';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./fatture-form.component.css']
 })
 export class FattureFormComponent implements OnInit {
-  
+
   cliente: IClienti = {
     ragioneSociale: '',
     partitaIva: '',
@@ -57,6 +57,7 @@ export class FattureFormComponent implements OnInit {
   button: string = 'Inserisci Fattura';
   show = true;
   show2 = false;
+
   model: NgbDateStruct = {
     year: 0,
     month: 0,
@@ -82,7 +83,8 @@ export class FattureFormComponent implements OnInit {
     private fattureService: FattureService,
     private statoFatturaService: StatoFatturaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private calendar: NgbCalendar
   ) { }
 
   ngOnInit(): void {
@@ -107,6 +109,7 @@ export class FattureFormComponent implements OnInit {
       else {
         this.show2 = true;
         this.fattureService.getFatturaById(element.id).subscribe(fattura => {
+          this.model = this.calendar.getToday();
           this.fattura = fattura;
           this.stato = true;
           this.titolo = 'Modifica Stato Fattura';
@@ -128,7 +131,10 @@ export class FattureFormComponent implements OnInit {
 
       }
       else {
-        this.fattura.data = this.model.year + '-' + this.model.month + '-' + this.model.day;
+        console.log(this.model)
+
+        console.log(this.changeFormatwithbar(this.model.year,this.model.month, this.model.day))
+        this.fattura.data = this.changeFormatwithbar(this.model.year,this.model.month, this.model.day)
         let fattura_put = {
           id: this.fattura.id,
           data: this.fattura.data,
@@ -145,22 +151,33 @@ export class FattureFormComponent implements OnInit {
         this.fattureService.updateFatturaById(fattura_put).subscribe(resp => {
           console.log(fattura_put);
         });
-        
+
         this.router.navigate(['/contabilita/'+ this.fattura.cliente.id +'/detailsbyclient'])
 
       }
     }
     )
-
-
-
-
-
-
-
   }
+
+  changeFormatwithbar(anno: number, mese: number, giorno: number): string {
+    let day = giorno.toString()
+    let month = mese.toString()
+    let year = anno.toString()
+    if (giorno <= 9) {
+      day = '0' + day
+    }
+    if (mese <= 9) {
+      month = '0' + month
+    }
+    return year + '-' + month + '-' + day 
+  }
+
 
   goToAddnewClient() {
     this.router.navigate(['addcliente'])
   }
+
+
 }
+
+

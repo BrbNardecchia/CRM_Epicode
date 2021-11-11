@@ -29,6 +29,7 @@
     "echarts": "^5.2.2",
     "echarts-for-angular": "^0.2.0",
     "jquery": "^3.6.0",
+    "luxon": "^2.1.1",
     "ngx-echarts": "^8.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",

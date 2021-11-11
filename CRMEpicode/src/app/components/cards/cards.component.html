@@ -1,24 +1,9 @@
-<div class="row">
-    <div class="col Personalform">
-        <mat-card class="example-card bg-light text-dark">
-            <mat-card-title>Fatturato più alto per fascia</mat-card-title>
-            <mat-card-content>
-                <p>INPUT FIELD: BASSA MEDIO ALTA</p>
-                <p>RAGIONE SOCIALE CLIENTE</p>
-                <p>LOCALITA</p>
-                <p>FATTURATO</p>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="col Personalform">
-        <mat-card class="example-card bg-light text-dark">
-            <mat-card-title>Ultimo Cliente Contattato</mat-card-title>
-            <mat-card-content>
-                <p>l'ultimo cliente contattato è stato:</p>
-                <p>RAGIONE SOCIALE CLIENTE</p>
-                <p>NOME E COGNOME CONTATTO</p>
-                <p>DATA ULTIMO CONTATTO</p>
-            </mat-card-content>
-        </mat-card>
-    </div>
-</div>
+<mat-card class="example-card bg-light text-dark h-75 text-center">
+    <mat-card-title>{{cliente[0].ragioneSociale}}</mat-card-title>
+    <mat-card-content>
+        <h3><b>Nome Contatto: </b>{{cliente[0].nomeContatto}}</h3>
+        <h3><b>Cognome Contatto: </b>{{cliente[0].cognomeContatto}}</h3>
+        <h3><b>Tipo Cliente: </b>{{cliente[0].tipoCliente}}</h3>
+        <h3><b>Fatturato annuale: </b>{{cliente[0].fatturatoAnnuale}}</h3>
+    </mat-card-content>
+</mat-card>

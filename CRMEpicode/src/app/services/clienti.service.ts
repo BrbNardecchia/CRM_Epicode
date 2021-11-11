@@ -18,6 +18,22 @@ export class ClientiService {
     return this.http.get<IObjClienti>(environment.serverAddress + 'api/clienti?page=0&size=100&sort=id,DESC');
   }
 
+  getPercentualiTipiClienti(){
+    let percentuali:number[]= []
+    let milleClienti;
+    this.http.get<IObjClienti>(environment.serverAddress + 'api/clienti?page=0&size=6000')
+    .subscribe(resp => {
+      milleClienti = resp.content;
+      let srl = milleClienti.filter(element => element.tipoCliente === 'SRL');
+      let spa = milleClienti.filter(element => element.tipoCliente === 'SPA');
+      let sas = milleClienti.filter(element => element.tipoCliente === 'SAS');
+      let pa = milleClienti.filter(element => element.tipoCliente === 'PA');
+      percentuali.push(srl.length, spa.length, sas.length, pa.length)
+      console.log(percentuali)
+    });
+    return percentuali
+  }
+
   getClienteById(id: number){
     return this.http.get<IClienti>(this.urlAPI + id);
   }
@@ -38,20 +54,24 @@ export class ClientiService {
     return this.http.put(this.urlAPI + modificheCliente.id, modificheCliente);
   }
 
-  getClientiByMoneybet(value1: number, value2: number){
-    return this.http.get<IClienti[]>(this.urlAPI + 'fatturatoannuale?from=' + value1 + '&to=' + value2);
+  getClientiByMoneybet(){
+    return this.http.get<IObjClienti>(this.urlAPI + 'fatturatoannuale?from=0&to=100000000&size=1');
   }
 
   getClientiByDataInsbet(data1: string, data2: string){
-    return this.http.get<IClienti[]>(this.urlAPI + 'datainserimento?from=' + data1 + '&to=' + data2);
+    return this.http.get<IObjClienti>(this.urlAPI + 'datainserimento?from=' + data1 + '&to=' + data2);
   }
 
   getClientiByDataContbet(data1: string, data2: string){
-    return this.http.get<IClienti[]>(this.urlAPI + 'datainserimento?from=' + data1 + '&to=' + data2);
+    return this.http.get<IObjClienti>(this.urlAPI + 'datainserimento?from=' + data1 + '&to=' + data2);
   }
 
   getClientiByRagSoc(element : string){
-    return this.http.get<IClienti[]>(this.urlAPI + 'ragionesociale?nome=' + element);
+    return this.http.get<IObjClienti>(this.urlAPI + 'ragionesociale?nome=' + element);
+  }
+
+  findClientebyElement(obj: any){
+    return
   }
 
 

@@ -15,7 +15,7 @@ export class ProvinceService {
   }
 
   getAllProvince() {
-    return this.http.get<IObjProvince>(environment.serverAddress + 'api/province?page=0&size=20&sort=id,ASC');
+    return this.http.get<IObjProvince>(environment.serverAddress + 'api/province?page=0&size=150&sort=id,ASC');
   }
 
   getProvinciaById(id: number){

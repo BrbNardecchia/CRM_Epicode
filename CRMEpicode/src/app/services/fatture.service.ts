@@ -25,15 +25,15 @@ export class FattureService {
   }
 
   getFatturaByAnno(anno: string){
-    return this.http.get<IFatture>(this.urlAPI+ 'anno/?anno=' + anno + '&page=0&size=20&sort=id,ASC');
+    return this.http.get<IObjFatture>(this.urlAPI+ 'anno/?anno=' + anno + '&page=0&size=20&sort=id,ASC');
   }
 
   getFatturaByDataBet(data1: string, data2: string){
-    return this.http.get<IFatture>(this.urlAPI + 'data/?from=' + data1 + '&to=' + data2 + '&page=0&size=20&sort=id,DESC' );
+    return this.http.get<IObjFatture>(this.urlAPI + 'data/?from=' + data1 + '&to=' + data2 + '&page=0&size=20&sort=id,DESC' );
   }
 
   getFatturaByIdImpBet(value1: number, value2: number){
-    return this.http.get<IFatture>(this.urlAPI + 'importo/?from=' + value1 + '&to=' + value2 + '&page=0&size=20&sort=id,DESC' );
+    return this.http.get<IObjFatture>(this.urlAPI + 'importo/?from=' + value1 + '&to=' + value2 + '&page=0&size=20&sort=id,DESC' );
   }
 
   createFattura(nuovoFattura: IFatture){
@@ -42,6 +42,10 @@ export class FattureService {
 
   deleteFatture(id: number) {
     return this.http.delete(this.urlAPI + id);
+  }
+
+  deleteFattureByClient(id: number){
+    return this.http.delete(this.urlAPI + 'cliente/' + id);
   }
 
   updateFatturaById(modificheFattura: any){

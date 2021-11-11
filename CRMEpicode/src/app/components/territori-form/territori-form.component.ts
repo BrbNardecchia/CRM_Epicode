@@ -49,6 +49,7 @@ export class TerritoriFormComponent implements OnInit {
   }
 
   addComune(){
+    console.log(this.comune)
     this.comuniService.createComune(this.comune).subscribe(resp => console.log(resp))
   }
 

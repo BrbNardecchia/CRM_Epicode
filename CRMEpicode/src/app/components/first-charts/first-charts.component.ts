@@ -10,6 +10,7 @@ import { LabelLayout } from 'echarts/features';
 import { SVGRenderer } from 'echarts/renderers';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientiService } from 'src/app/services/clienti.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 echarts.use([
@@ -27,9 +28,11 @@ echarts.use([
   styleUrls: ['./first-charts.component.css']
 })
 export class FirstChartsComponent implements OnInit {
+
   readonly echartsExtentions: any[];
   echartsOptions = {};
-  tipiCliente: string[] = [];
+  tipiCliente: any =this.clientiService.getPercentualiTipiClienti()
+
   constructor(
     private clientiService: ClientiService,
     private route: ActivatedRoute,
@@ -39,10 +42,9 @@ export class FirstChartsComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
-    this.clientiService.getTipiCliente().subscribe(resp => {
-      this.tipiCliente = resp;
+
+    setTimeout(() => {
       this.echartsOptions = {
         textStyle: {
           color: '#f7f8fa',
@@ -59,39 +61,27 @@ export class FirstChartsComponent implements OnInit {
           },
           orient: 'vertical',
           left: 'left'
+        },  
+        xAxis: {
+          type: 'value'
+        },
+        yAxis: {
+          
+          type: 'category',
+          data: ['SRL', 'SPA', 'SAS', 'PA']
         },
         series: [
           {
-            label: {
-              color: 'white',
-            },
-            name: 'Nightingale Chart',
-            type: 'pie',
-            radius: [70, 130],
-            center: ['50%', '50%'],
-            roseType: 'area',
-            itemStyle: {
-              borderRadius: 8
-            },
-            data: [
-              { value: 735, name: this.tipiCliente[0] },
-              { value: 735, name: this.tipiCliente[1] },
-              { value: 580, name: this.tipiCliente[2] },
-              { value: 484, name: this.tipiCliente[3] },
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
-              }
-            },
+            data: this.tipiCliente,
+            type: 'bar',
+            showBackground: true,
           }
         ],
 
       };
-    });
+    },1000);
 
   }
+
 }
 

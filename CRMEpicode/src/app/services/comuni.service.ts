@@ -17,7 +17,7 @@ export class ComuniService {
   }
 
   getAllComuni() {
-    return this.http.get<IObjComuni>(environment.serverAddress + 'api/comuni?page=0&size=20&sort=id,ASC');
+    return this.http.get<IObjComuni>(environment.serverAddress + 'api/comuni?size=300&sort=id,ASC');
   }
 
   getComuneByProvince(provincia: IProvince){
