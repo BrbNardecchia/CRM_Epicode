@@ -11,16 +11,20 @@
     </div>
     <div class="row">
         <div class="Personalform col">
-            <h2 class="text-center">Cerca Clienti per ragione Sociale</h2>
+            <h2 class="text-center">Cerca Cliente</h2>
             <div class="row Personalform">
                 <div class="w-100">
-                <mat-form-field class="mr-5" appearance="outline">
-                    <mat-label>Cerca per Email:</mat-label>
-                    <input [(ngModel)]="email" matInput #number placeholder="Importo Min" value="9000">
-                </mat-form-field>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Campo dove ricercare</mat-label>
+                        <mat-select [(ngModel)]="ricerca.key" name="research">
+                          <mat-option *ngFor="let param of params" [value]="param.viewValue">
+                            {{param.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                 <mat-form-field class="mx-5" appearance="outline">
-                    <mat-label>Cerca per Cognome:</mat-label>
-                    <input [(ngModel)]="cognome" matInput  placeholder="Importo Min" value="">
+                    <mat-label>Valore di ricerca:</mat-label>
+                    <input [(ngModel)]="ricerca.value" matInput name="valore"  placeholder="Valore di ricerca">
                 </mat-form-field>
                 <button type="button" (click)="cercaCliente()" class="btn btn_fucsia float-right">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -35,24 +39,26 @@
                   <table class="table table-striped bg-light">
                     <thead>
                         <tr>
-                            <th scope="col">Numero</th>
-                            <th scope="col">Data</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Importo</th>
-                            <th scope="col">Stato</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Ragione Sociale</th>
+                            <th scope="col">Tipo Cliente</th>
+                            <th scope="col">Contatto</th>
+                            <th scope="col">Telefono Contatto</th>
                             <th></th>
-                        </tr>
+                          </tr>
                     </thead>
                     <tbody>
-                        <tr >
-                            <th style="width: 10%" scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style="width: 20%">
-                              <button type="button" class="btn btn-outline-danger mx-1"><i
-                                  class="bi bi-trash"></i></button>
+                        <tr *ngFor="let cliente of clienti; index as i">
+                            <th scope="row">{{ cliente.id }}</th>
+                            <td>{{ cliente.ragioneSociale }}</td>
+                            <td>{{ cliente.tipoCliente }}</td>
+                            <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
+                            <td>{{ cliente.telefonoContatto }}</td>
+                            <td class="text-right">
+                              <button type="button" (click)="detailsCliente(cliente)" class="btn btn-outline-dark mx-1"><i
+                                  class="bi bi-file-earmark-spreadsheet"></i></button>
+                              <button *ngIf="mostra" type="button" (click)="updateCliente(cliente)" class="btn btn-outline-info mx-1"><i
+                                  class="bi bi-pencil-square"></i></button>
                             </td>
                           </tr>
                     </tbody>

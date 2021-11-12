@@ -41,7 +41,7 @@ import { FattureClienteComponent } from './components/fatture-cliente/fatture-cl
 import {MatSelectModule} from '@angular/material/select';
 import { EchartsxModule } from 'echarts-for-angular';
 import { CardsComponent } from './components/cards/cards.component';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -66,6 +66,7 @@ import { CardsComponent } from './components/cards/cards.component';
     EchartsxModule,
     BrowserModule,
     AppRoutingModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,

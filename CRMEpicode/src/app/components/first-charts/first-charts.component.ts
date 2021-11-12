@@ -13,6 +13,7 @@ import { ClientiService } from 'src/app/services/clienti.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
+
 echarts.use([
   TitleComponent,
   TooltipComponent,
@@ -28,10 +29,10 @@ echarts.use([
   styleUrls: ['./first-charts.component.css']
 })
 export class FirstChartsComponent implements OnInit {
-
+  status = true;
   readonly echartsExtentions: any[];
   echartsOptions = {};
-  tipiCliente: any =this.clientiService.getPercentualiTipiClienti()
+  tipiCliente: any = this.clientiService.getPercentualiTipiClienti()
 
   constructor(
     private clientiService: ClientiService,
@@ -43,45 +44,45 @@ export class FirstChartsComponent implements OnInit {
 
 
   ngOnInit() {
-
     setTimeout(() => {
-      this.echartsOptions = {
+    this.status = false;
+    this.echartsOptions = {
+      textStyle: {
+        color: '#f7f8fa',
+        fontStyle: 'italic',
+        fontSize: 20
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        inactiveColor: '#b60163',
         textStyle: {
-          color: '#f7f8fa',
-          fontStyle: 'italic',
-          fontSize: 20
+          color: 'white'
         },
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          inactiveColor: '#b60163',
-          textStyle: {
-            color: 'white'
-          },
-          orient: 'vertical',
-          left: 'left'
-        },  
-        xAxis: {
-          type: 'value'
-        },
-        yAxis: {
-          
-          type: 'category',
-          data: ['SRL', 'SPA', 'SAS', 'PA']
-        },
-        series: [
-          {
-            colorBy: 'data',
-            color: '#b60163',
-            data: this.tipiCliente,
-            type: 'bar',
-            showBackground: true,
-          }
-        ],
-
-      };
+        orient: 'vertical',
+        left: 'left'
+      },  
+      xAxis: {
+        type: 'value'
+      },
+      yAxis: {
+        
+        type: 'category',
+        data: ['SRL', 'SPA', 'SAS', 'PA']
+      },
+      series: [
+        {
+          colorBy: 'data',
+          color: '#b60163',
+          data: this.tipiCliente,
+          type: 'bar',
+          showBackground: true,
+        }
+      ],
+    };
     },2000);
+    
   }
 }
 

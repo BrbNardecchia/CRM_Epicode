@@ -70,8 +70,8 @@ export class ClientiService {
     return this.http.get<IObjClienti>(this.urlAPI + 'ragionesociale?nome=' + element);
   }
 
-  findClientebyElement(obj: any){
-    return
+  findClientebyElement(params: any){
+    return this.http.post<IObjClienti>(this.urlAPI + 'find', params)
   }
 
 
