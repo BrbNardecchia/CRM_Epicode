@@ -46,3 +46,36 @@ input:required,select:required,textarea:required{
 ngb-toast{
     height: 130px;
 }
+
+
+
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+#dash-content{
+  background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("./assets/img/15.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
+}
+  .mat-drawer-content{
+    overflow-x: hidden;
+  }
+  
+  .example-events {
+    width: 300px;
+    height: 200px;
+    overflow: auto;
+    border: 1px solid #b60163;
+  }
+
+  #sidenav-content{
+      width:250px;
+      background-color: #212121;
+      box-shadow: 8px 0px 5px 0px #B60163;
+  }

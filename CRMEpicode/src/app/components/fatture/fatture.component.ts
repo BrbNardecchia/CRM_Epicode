@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { IFatture } from 'src/app/interfaces/ifatture';
 import { FattureService } from 'src/app/services/fatture.service';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from 'src/app/services/login.service';
 
  
 
@@ -12,6 +13,10 @@ import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-boo
   styleUrls: ['./fatture.component.css'],
 })
 export class FattureComponent implements OnInit {
+
+  events: string[] = [];
+  opened: boolean = true;
+  mostra:boolean = false;
 
   //datapicker
   hoveredDate: NgbDate | null = null;
@@ -36,7 +41,8 @@ export class FattureComponent implements OnInit {
   constructor(
     private fattureService: FattureService,
     private calendar: NgbCalendar, 
-    public formatter: NgbDateParserFormatter
+    public formatter: NgbDateParserFormatter,
+    private loginService: LoginService
     ) {
       this.fromDate = calendar.getToday();
       this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
@@ -44,6 +50,7 @@ export class FattureComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.mostra = this.loginService.setNavigationMode()
     this.commento1 = '';
     this.commento2 = '';
   }

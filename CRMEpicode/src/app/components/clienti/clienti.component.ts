@@ -12,10 +12,15 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class ClientiComponent implements OnInit {
 
+  events: string[] = [];
+  opened: boolean = true;
+  mostra:boolean = false;
   page = 1;
   pageSize = 8;
   collectionSize = 0
-  mostra = this.loginService.setNavigationMode()
+  
+
+
 
   Clienti: IClienti[] = [];
   clientiTotali: IClienti[] = [];
@@ -27,6 +32,7 @@ export class ClientiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mostra = this.loginService.setNavigationMode()
     this.aggiornaLista();
   }
 

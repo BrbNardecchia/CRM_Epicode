@@ -10,9 +10,6 @@ import { RouteGuardService } from 'src/app/services/route-guard.service';
 })
 export class LoginComponent implements OnInit {
 
-  @Output() mostraNav = new EventEmitter();
-
-  stato:boolean = false;
 
   logIn = {
     username: '',
@@ -43,8 +40,6 @@ export class LoginComponent implements OnInit {
     this.loginService.LoginUser(this.logIn).subscribe(resp => {
       localStorage.setItem('token', resp.accessToken);
       localStorage.setItem('roles', JSON.stringify(resp.roles))
-      this.stato = this.loginService.setNavigationMode()
-      this.mostraNav.emit(this.stato)
       this.guard.setLogin();
       this.router.navigate(['dashboard']);
     },

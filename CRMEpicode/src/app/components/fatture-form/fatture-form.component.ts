@@ -8,6 +8,7 @@ import { StatoFatturaService } from 'src/app/services/stato-fattura.service';
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/classes/classes';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-fatture-form',
@@ -15,6 +16,10 @@ import { Cliente } from 'src/app/classes/classes';
   styleUrls: ['./fatture-form.component.css']
 })
 export class FattureFormComponent implements OnInit {
+
+  events: string[] = [];
+  opened: boolean = true;
+  mostra:boolean = false;
 
   cliente: IClienti = new Cliente();
   titolo: string = 'Inserisci Nuova Fattura';
@@ -49,10 +54,12 @@ export class FattureFormComponent implements OnInit {
     private statoFatturaService: StatoFatturaService,
     private route: ActivatedRoute,
     private router: Router,
+    private loginService: LoginService,
     private calendar: NgbCalendar
   ) { }
 
   ngOnInit(): void {
+    this.mostra = this.loginService.setNavigationMode()
     this.show2 = false;
     this.statoFatturaService.getAllStatiFatture().subscribe(resp => {
       this.statoFattura = resp.content;
@@ -83,13 +90,14 @@ export class FattureFormComponent implements OnInit {
   setFattura() {
     this.route.params.subscribe(element => {
       if (!element.id) {
+        this.fattura.data = this.changeFormatwithbar(this.model.year, this.model.month, this.model.day)
         if (this.fattura.data && this.fattura.anno && this.fattura.importo && this.fattura.stato.nome && this.fattura.cliente.ragioneSociale) {
-          this.fattura.data = this.changeFormatwithbar(this.model.year, this.model.month, this.model.day)
           this.fattureService.createFattura(this.fattura).subscribe(resp => {
             this.router.navigate(['/clienti'])
           });
         }
         else {
+          console.log(this.fattura)
           this.show2 = true;
         }
       }

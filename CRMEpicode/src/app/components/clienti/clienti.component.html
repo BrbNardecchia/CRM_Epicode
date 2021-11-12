@@ -1,47 +1,68 @@
-<div class="text-center">
-<div class="row Personalform">
-  <div class="col-sm">
-    <h1>Clienti</h1>
-    <table class="table table-striped bg-light">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Ragione Sociale</th>
-          <th scope="col">Tipo Cliente</th>
-          <th scope="col">Contatto</th>
-          <th scope="col">Telefono Contatto</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cliente of clientiTotali; index as i">
-          <th scope="row">{{ cliente.id }}</th>
-          <td>{{ cliente.ragioneSociale }}</td>
-          <td>{{ cliente.tipoCliente }}</td>
-          <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
-          <td>{{ cliente.telefonoContatto }}</td>
-          <td class="text-right">
-            <button type="button" (click)="detailsCliente(cliente)" class="btn btn-outline-dark mx-1"><i
-                class="bi bi-file-earmark-spreadsheet"></i></button>
-            <button *ngIf="mostra" type="button" (click)="updateCliente(cliente)" class="btn btn-outline-info mx-1"><i
-                class="bi bi-pencil-square"></i></button>
-            <button *ngIf="mostra" type="button" (click)="deleteCliente(cliente)" class="btn btn-outline-danger mx-1"><i
-                class="bi bi-trash"></i></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-between p-2">
-      <ngb-pagination  [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
-        (pageChange)="refreshClienti()">
-      </ngb-pagination>
+<mat-sidenav-container class="sidenav-container vh-100">
+  <mat-sidenav id="sidenav-content" #sidenav mode="side" [(opened)]="opened">
+    <app-sidebar-nav></app-sidebar-nav>
+  </mat-sidenav>
+  <mat-sidenav-content id="dash-content">
+    <mat-toolbar>
+      <button mat-button (click)="sidenav.toggle()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </svg>
+      </button>
+      <app-top-nav *ngIf="mostra"></app-top-nav>
+    </mat-toolbar>
 
-      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshClienti()">
-        <option [ngValue]="5">5 items per page</option>
-        <option [ngValue]="8">8 items per page</option>
-        <option [ngValue]="12">12 items per page</option>
-      </select>
+    <div>
+      <div class="text-center">
+        <div class="row Personalform">
+          <div class="col-sm">
+            <h1>Clienti</h1>
+            <table class="table table-striped bg-light">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Ragione Sociale</th>
+                  <th scope="col">Tipo Cliente</th>
+                  <th scope="col">Contatto</th>
+                  <th scope="col">Telefono Contatto</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cliente of clientiTotali; index as i">
+                  <th scope="row">{{ cliente.id }}</th>
+                  <td>{{ cliente.ragioneSociale }}</td>
+                  <td>{{ cliente.tipoCliente }}</td>
+                  <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
+                  <td>{{ cliente.telefonoContatto }}</td>
+                  <td class="text-right">
+                    <button type="button" (click)="detailsCliente(cliente)" class="btn btn-outline-dark mx-1"><i
+                        class="bi bi-file-earmark-spreadsheet"></i></button>
+                    <button *ngIf="mostra" type="button" (click)="updateCliente(cliente)"
+                      class="btn btn-outline-info mx-1"><i class="bi bi-pencil-square"></i></button>
+                    <button *ngIf="mostra" type="button" (click)="deleteCliente(cliente)"
+                      class="btn btn-outline-danger mx-1"><i class="bi bi-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                (pageChange)="refreshClienti()">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto" [(ngModel)]="pageSize"
+                (ngModelChange)="refreshClienti()">
+                <option [ngValue]="5">5 items per page</option>
+                <option [ngValue]="8">8 items per page</option>
+                <option [ngValue]="12">12 items per page</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

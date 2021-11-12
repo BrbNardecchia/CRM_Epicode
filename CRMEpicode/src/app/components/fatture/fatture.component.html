@@ -1,162 +1,170 @@
-<div class="text-center">
-    <div class="row Personalform">
-        <div class="w-100 text-center mb-4">
-            <h1>Ottieni Fatture tra due Date
-                <button (click)="clearFatture1()" type="button" class="btn btn_fucsia mx-3">
-                    pulisci campo
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        class="bi bi-download" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                      </svg>
-                </button>
-            </h1>
-            <h3>{{commento1}}</h3>
-        </div>
-
-        <form class="form-inline">
-            <div class="form-group hidden">
-              <div class="input-group">
-                <input name="datepicker"
-                       class="form-control"
-                       ngbDatepicker
-                       #datepicker="ngbDatepicker"
-                       [autoClose]="'outside'"
-                       (dateSelect)="onDateSelection($event)"
-                       [displayMonths]="2"
-                       [dayTemplate]="t"
-                       outsideDays="hidden"
-                       [startDate]="fromDate!"
-                       tabindex="-1">
-                <ng-template #t let-date let-focused="focused">
-                  <span class="custom-day"
-                        [class.focused]="focused"
-                        [class.range]="isRange(date)"
-                        [class.faded]="isHovered(date) || isInside(date)"
-                        (mouseenter)="hoveredDate = date"
-                        (mouseleave)="hoveredDate = null">
-						                    {{ date.day }}
-                  </span>
-                </ng-template>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group">
-                <input #dpFromDate
-                       class="form-control" placeholder="yyyy-mm-dd"
-                       name="dpFromDate"
-                       [value]="formatter.format(fromDate)"
-                       (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
-                <div class="input-group-append">
-                    <button class="btn btn_fucsia" (click)="datepicker.toggle()" type="button"><i class="bi bi-calendar2-plus"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="form-group ml-2">
-              <div class="input-group">
-                <input #dpToDate
-                       class="form-control" placeholder="yyyy-mm-dd"
-                       name="dpToDate"
-                       [value]="formatter.format(toDate)"
-                       (input)="toDate = validateInput(toDate, dpToDate.value)">
-                <div class="input-group-append">
-                  <button class="btn btn_fucsia" (click)="datepicker.toggle()" type="button"><i class="bi bi-calendar2-plus"></i></button>
-                </div>
-              </div>
-            </div>
-            <button (click)="getFattureByRangeDate()" type="button" class="btn btn_fucsia m-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                    class="bi bi-download" viewBox="0 0 16 16">
-                    <path
-                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                    <path
-                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+<mat-sidenav-container class="sidenav-container vh-100">
+    <mat-sidenav id="sidenav-content" #sidenav mode="side" [(opened)]="opened">
+        <app-sidebar-nav></app-sidebar-nav>
+    </mat-sidenav>
+    <mat-sidenav-content id="dash-content">
+        <mat-toolbar>
+            <button mat-button (click)="sidenav.toggle()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                 </svg>
             </button>
-          </form>
-          <hr/>
-        <table class="table table-striped bg-light">
-            <thead>
-                <tr>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Importo</th>
-                    <th scope="col">Stato</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let fattura of fatture_perData; index as i">
-                    <th style="width: 10%" scope="row">{{i+1}}</th>
-                    <td>{{fattura.data}}</td>
-                    <td>{{fattura.cliente.ragioneSociale}}</td>
-                    <td>{{fattura.importo}}</td>
-                    <td>{{fattura.stato.nome}}</td>
-                    <td style="width: 20%">
-                      <button type="button" (click)="deleteFattura(fattura)" class="btn btn-outline-danger mx-1"><i
-                          class="bi bi-trash"></i></button>
-                    </td>
-                  </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row Personalform">
-        <div class="w-100 text-center ">
-            <h1 class="mb-5">Ottieni Fatture modificate tra due Importi
-                <button (click)="clearFatture2()" type="button" class="btn btn_fucsia mx-3">
-                    pulisci campo
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        class="bi bi-download" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                      </svg>
-                </button>
-            </h1>
-            <mat-form-field class="mx-5" appearance="outline">
-                <mat-label>Importo Min</mat-label>
-                <input [(ngModel)]="minValue" matInput #number placeholder="Importo Min" value="9000">
-            </mat-form-field>
-            <button (click)="getFattureByValues()" type="button" class="btn btn_fucsia">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                    class="bi bi-download" viewBox="0 0 16 16">
-                    <path
-                        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                    <path
-                        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                </svg>
-            </button>
-            <mat-form-field class="mx-5" appearance="outline">
-                <mat-label>Importo Max</mat-label>
-                <input  [(ngModel)]="maxValue" matInput #number placeholder="Importo Max" value="10000">
-            </mat-form-field>
-            <h3>{{commento2}}</h3>
-        </div>
+            <app-top-nav *ngIf="mostra"></app-top-nav>
+        </mat-toolbar>
+        <div>
+                <div class="row Personalform">
+                    <div class="w-100 text-center mb-4">
+                        <h1>Ottieni Fatture tra due Date
+                            <button (click)="clearFatture1()" type="button" class="btn btn_fucsia mx-3">
+                                pulisci campo
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-download" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                </svg>
+                            </button>
+                        </h1>
+                        <h3>{{commento1}}</h3>
+                    </div>
 
-        <table class="table table-striped bg-light">
-            <thead>
-                <tr>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Importo</th>
-                    <th scope="col">Stato</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let fattura of fatture_perValore; index as i">
-                    <th style="width: 10%" scope="row">{{i+1}}</th>
-                    <td>{{fattura.data}}</td>
-                    <td>{{fattura.cliente.ragioneSociale}}</td>
-                    <td>{{fattura.importo}}</td>
-                    <td>{{fattura.stato.nome}}</td>
-                    <td style="width: 20%">
-                      <button type="button" (click)="deleteFattura(fattura)" class="btn btn-outline-danger mx-1"><i
-                          class="bi bi-trash"></i></button>
-                    </td>
-                  </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                    <form class="form-inline">
+                        <div class="form-group hidden">
+                            <div class="input-group">
+                                <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                                    [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2"
+                                    [dayTemplate]="t" outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
+                                <ng-template #t let-date let-focused="focused">
+                                    <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                                        [class.faded]="isHovered(date) || isInside(date)"
+                                        (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                                        {{ date.day }}
+                                    </span>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+                                    [value]="formatter.format(fromDate)"
+                                    (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                <div class="input-group-append">
+                                    <button class="btn btn_fucsia" (click)="datepicker.toggle()" type="button"><i
+                                            class="bi bi-calendar2-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ml-2">
+                            <div class="input-group">
+                                <input #dpToDate class="form-control" placeholder="yyyy-mm-dd" name="dpToDate"
+                                    [value]="formatter.format(toDate)"
+                                    (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                <div class="input-group-append">
+                                    <button class="btn btn_fucsia" (click)="datepicker.toggle()" type="button"><i
+                                            class="bi bi-calendar2-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <button (click)="getFattureByRangeDate()" type="button" class="btn btn_fucsia m-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-download" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path
+                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                            </svg>
+                        </button>
+                    </form>
+                    <hr />
+                    <table class="table table-striped bg-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Importo</th>
+                                <th scope="col">Stato</th>
+                                <th *ngIf="mostra"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let fattura of fatture_perData; index as i">
+                                <th style="width: 10%" scope="row">{{i+1}}</th>
+                                <td>{{fattura.data}}</td>
+                                <td>{{fattura.cliente.ragioneSociale}}</td>
+                                <td>{{fattura.importo}}</td>
+                                <td>{{fattura.stato.nome}}</td>
+                                <td *ngIf="mostra" style="width: 20%">
+                                    <button type="button" (click)="deleteFattura(fattura)"
+                                        class="btn btn-outline-danger mx-1"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row Personalform">
+                    <div class="w-100 text-center ">
+                        <h1 class="mb-5">Ottieni Fatture modificate tra due Importi
+                            <button (click)="clearFatture2()" type="button" class="btn btn_fucsia mx-3">
+                                pulisci campo
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    class="bi bi-download" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                    <path fill-rule="evenodd"
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                </svg>
+                            </button>
+                        </h1>
+                        <mat-form-field class="mx-5" appearance="outline">
+                            <mat-label>Importo Min</mat-label>
+                            <input [(ngModel)]="minValue" matInput #number placeholder="Importo Min" value="9000">
+                        </mat-form-field>
+                        <button   (click)="getFattureByValues()" type="button" class="btn btn_fucsia">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-download" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path
+                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                            </svg>
+                        </button>
+                        <mat-form-field class="mx-5" appearance="outline">
+                            <mat-label>Importo Max</mat-label>
+                            <input [(ngModel)]="maxValue" matInput #number placeholder="Importo Max" value="10000">
+                        </mat-form-field>
+                        <h3>{{commento2}}</h3>
+                    </div>
+
+                    <table class="table table-striped bg-light">
+                        <thead>
+                            <tr>
+                                <th scope="col">Numero</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Importo</th>
+                                <th scope="col">Stato</th>
+                                <th *ngIf="mostra" ></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let fattura of fatture_perValore; index as i">
+                                <th style="width: 10%" scope="row">{{i+1}}</th>
+                                <td>{{fattura.data}}</td>
+                                <td>{{fattura.cliente.ragioneSociale}}</td>
+                                <td>{{fattura.importo}}</td>
+                                <td>{{fattura.stato.nome}}</td>
+                                <td *ngIf="mostra" style="width: 20%">
+                                    <button  type="button" (click)="deleteFattura(fattura)"
+                                        class="btn btn-outline-danger mx-1"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -13,7 +13,11 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class FattureClienteComponent implements OnInit {
 
-  mostra = this.loginService.setNavigationMode()
+  events: string[] = [];
+  opened: boolean = true;
+  mostra: boolean = false;
+  show: boolean = false;
+
   titolo = ''
   fatture: IFatture[] = []
 
@@ -25,6 +29,7 @@ export class FattureClienteComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.mostra = this.loginService.setNavigationMode()
     this.refreshFatture();
   }
 
@@ -32,16 +37,25 @@ export class FattureClienteComponent implements OnInit {
     this.route.params.subscribe(element => {
       this.fattureService.getFattureByClient(element.id).subscribe(resp => {
         this.fatture = resp.content;
-          if(this.fatture[0]){
-            this.titolo = this.fatture[0].cliente.ragioneSociale;
-          }
-          else{
+        if (this.fatture[0]) {
+          this.titolo = this.fatture[0].cliente.ragioneSociale;
+        }
+        else {
+          if (this.loginService.setNavigationMode()) {
             this.router.navigate(['/addfattura']);
           }
+          else{
+            this.show = true;
+          }
+
+        }
       })
     })
   }
 
+  goToClienti(){
+    this.router.navigate(['/clienti']);
+  }
   deleteFattura(fattura: IFatture) {
     if (fattura.id) {
       this.fattureService.deleteFatture(fattura.id).subscribe(resp => {

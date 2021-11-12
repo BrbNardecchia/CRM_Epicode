@@ -1,11 +1,15 @@
-body {
-    margin: 0;
-    color: black;
+
+.loginComponent {
+    margin:0;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../../../assets/img/15.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-box {
     width: 100%;
-    margin: 0 auto;
     max-width: 600px;
     min-height: 800px;
     position: relative;
@@ -42,7 +46,8 @@ body {
 .login-snip .tab,
 .login-space .group .label,
 .login-space .group .button {
-    text-transform: uppercase
+    text-transform: uppercase;
+    color: #fff;
 }
 
 .login-snip .tab {
@@ -178,11 +183,6 @@ a {
     text-decoration: none
 }
 
-.hr {
-    height: 2px;
-    margin: 60px 0 50px 0;
-    background: rgba(255, 255, 255, .2)
-}
 
 .foot {
     text-align: center
@@ -195,4 +195,8 @@ a {
 
 ::placeholder {
     color: #b3b3b3
+}
+
+.posizionamento {
+    margin: auto;
 }

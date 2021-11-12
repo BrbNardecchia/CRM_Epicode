@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { IClienti } from 'src/app/interfaces/iclienti';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-crm-home',
@@ -11,7 +12,12 @@ import { Router } from '@angular/router';
 })
 export class CrmHomeComponent implements OnInit {
 
-  mostra=true
+  events: string[] = [];
+  opened: boolean = true;
+
+  mostra:boolean = false;
+
+  
   ricerca = {
     key : '',
     value : '',
@@ -23,6 +29,7 @@ export class CrmHomeComponent implements OnInit {
 
   constructor(
     private clientiService: ClientiService,
+    private loginService: LoginService,
     private router: Router
   ) {}
 
@@ -34,7 +41,7 @@ export class CrmHomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.mostra = this.loginService.setNavigationMode()
   }
 
   cercaCliente(){

@@ -6,6 +6,7 @@ import { IComuni } from 'src/app/interfaces/icomuni';
 import { IProvince } from 'src/app/interfaces/iprovince';
 import { ClientiService } from 'src/app/services/clienti.service';
 import { ComuniService } from 'src/app/services/comuni.service';
+import { LoginService } from 'src/app/services/login.service';
 import { ProvinceService } from 'src/app/services/province.service';
 
 @Component({
@@ -15,8 +16,12 @@ import { ProvinceService } from 'src/app/services/province.service';
 })
 export class ClientFormComponent implements OnInit {
 
+  mostra:boolean = false;
   show = true;
   show2 = false;
+
+  events: string[] = [];
+  opened: boolean = true;
 
   cliente : IClienti = new Cliente();  
 
@@ -41,9 +46,11 @@ export class ClientFormComponent implements OnInit {
     private provinceService: ProvinceService,
     private clientiService: ClientiService,
     private route: ActivatedRoute,
+    private loginService: LoginService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.mostra = this.loginService.setNavigationMode()
     this.route.params.subscribe(element=>{
       if(!element.id){
         this.titoloForm = 'Inserire il nuovo Cliente';

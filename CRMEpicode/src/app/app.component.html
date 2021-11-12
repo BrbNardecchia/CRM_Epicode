@@ -1,23 +1,26 @@
-<mat-sidenav-container class="sidenav-container">
 
 
+<router-outlet></router-outlet>
+
+
+
+<!-- <mat-sidenav-container class="sidenav-container">
     <mat-sidenav id="sidenav-content" #sidenav mode="side" [(opened)]="opened">
         <app-sidebar-nav></app-sidebar-nav>
     </mat-sidenav>
-
     <mat-sidenav-content id="dash-content">
-        <mat-toolbar >
+        <mat-toolbar>
             <button mat-button (click)="sidenav.toggle()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list"
                     viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                 </svg>
             </button>
             <app-top-nav *ngIf="mostra"></app-top-nav>
         </mat-toolbar>
-        <router-outlet ></router-outlet>
+
+
+
     </mat-sidenav-content>
-    <!-- (mostraNav)="mostraNav($event)" -->
-
-
-</mat-sidenav-container>
+</mat-sidenav-container> -->

@@ -1,69 +1,89 @@
-<div class="mx-2 mt-5">
-    <div class="row">
-        <div class="Personalform col">
-            <h2 class="text-center">Tipi di Cliente (%)</h2>
-            <app-first-charts></app-first-charts>
-        </div>
-        <div class="Personalform col-4">
-            <h2 class="text-center">Cliente con più fatturato annuale</h2>
-            <app-cards></app-cards>
-        </div>
-    </div>
-    <div class="row">
-        <div class="Personalform col">
-            <h2 class="text-center">Cerca Cliente</h2>
-            <div class="row Personalform">
-                <div class="w-100">
-                      <mat-form-field appearance="fill">
-                        <mat-label>Campo dove ricercare</mat-label>
-                        <mat-select [(ngModel)]="ricerca.key" name="research">
-                          <mat-option *ngFor="let param of params" [value]="param.viewValue">
-                            {{param.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                <mat-form-field class="mx-5" appearance="outline">
-                    <mat-label>Valore di ricerca:</mat-label>
-                    <input [(ngModel)]="ricerca.value" matInput name="valore"  placeholder="Valore di ricerca">
-                </mat-form-field>
-                <button type="button" (click)="cercaCliente()" class="btn btn_fucsia float-right">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                        class="bi bi-download" viewBox="0 0 16 16">
-                        <path
-                            d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
-                        <path
-                            d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
-                    </svg>
-                </button>
+<mat-sidenav-container class="sidenav-container vh-100">
+    <mat-sidenav id="sidenav-content" #sidenav mode="side" [(opened)]="opened">
+        <app-sidebar-nav></app-sidebar-nav>
+    </mat-sidenav>
+    <mat-sidenav-content id="dash-content">
+        <mat-toolbar>
+            <button mat-button (click)="sidenav.toggle()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
+            </button>
+            <app-top-nav *ngIf="mostra"></app-top-nav>
+        </mat-toolbar>
+
+
+        <div class="mx-2 mt-5">
+            <div class="row">
+                <div class="Personalform col-7">
+                    <h2 class="text-center">Tipi di Cliente (%)</h2>
+                    <app-first-charts></app-first-charts>
+                </div>
+                <div class="Personalform col-4">
+                    <h2 class="text-center">Cliente con più fatturato annuale</h2>
+                    <app-cards></app-cards>
+                </div>
             </div>
-                  <table class="table table-striped bg-light">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Ragione Sociale</th>
-                            <th scope="col">Tipo Cliente</th>
-                            <th scope="col">Contatto</th>
-                            <th scope="col">Telefono Contatto</th>
-                            <th></th>
-                          </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cliente of clienti; index as i">
-                            <th scope="row">{{ cliente.id }}</th>
-                            <td>{{ cliente.ragioneSociale }}</td>
-                            <td>{{ cliente.tipoCliente }}</td>
-                            <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
-                            <td>{{ cliente.telefonoContatto }}</td>
-                            <td class="text-right">
-                              <button type="button" (click)="detailsCliente(cliente)" class="btn btn-outline-dark mx-1"><i
-                                  class="bi bi-file-earmark-spreadsheet"></i></button>
-                              <button *ngIf="mostra" type="button" (click)="updateCliente(cliente)" class="btn btn-outline-info mx-1"><i
-                                  class="bi bi-pencil-square"></i></button>
-                            </td>
-                          </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="Personalform col">
+                    <h2 class="text-center">Cerca Cliente</h2>
+                    <div class="row Personalform">
+                        <div class="w-100">
+                              <mat-form-field appearance="fill">
+                                <mat-label>Campo dove ricercare</mat-label>
+                                <mat-select [(ngModel)]="ricerca.key" name="research">
+                                  <mat-option *ngFor="let param of params" [value]="param.viewValue">
+                                    {{param.viewValue}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        <mat-form-field class="mx-5" appearance="outline">
+                            <mat-label>Valore di ricerca:</mat-label>
+                            <input [(ngModel)]="ricerca.value" matInput name="valore"  placeholder="Valore di ricerca">
+                        </mat-form-field>
+                        <button type="button" (click)="cercaCliente()" class="btn btn_fucsia float-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-download" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                <path
+                                    d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                            </svg>
+                        </button>
+                    </div>
+                          <table class="table table-striped bg-light">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Ragione Sociale</th>
+                                    <th scope="col">Tipo Cliente</th>
+                                    <th scope="col">Contatto</th>
+                                    <th scope="col">Telefono Contatto</th>
+                                    <th></th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cliente of clienti; index as i">
+                                    <th scope="row">{{ cliente.id }}</th>
+                                    <td>{{ cliente.ragioneSociale }}</td>
+                                    <td>{{ cliente.tipoCliente }}</td>
+                                    <td>{{ cliente.nomeContatto }} {{ cliente.cognomeContatto }}</td>
+                                    <td>{{ cliente.telefonoContatto }}</td>
+                                    <td class="text-right">
+                                      <button type="button" (click)="detailsCliente(cliente)" class="btn btn-outline-dark mx-1"><i
+                                          class="bi bi-file-earmark-spreadsheet"></i></button>
+                                      <button *ngIf="mostra" type="button" (click)="updateCliente(cliente)" class="btn btn-outline-info mx-1"><i
+                                          class="bi bi-pencil-square"></i></button>
+                                    </td>
+                                  </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
