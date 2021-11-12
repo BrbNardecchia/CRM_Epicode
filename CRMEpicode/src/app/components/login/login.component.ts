@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { RouteGuardService } from 'src/app/services/route-guard.service';
@@ -9,6 +9,10 @@ import { RouteGuardService } from 'src/app/services/route-guard.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  @Output() mostraNav = new EventEmitter();
+
+  stato:boolean = false;
 
   logIn = {
     username: '',
@@ -21,34 +25,39 @@ export class LoginComponent implements OnInit {
     username: '',
     email: '',
     password: '',
-    role: '["user"]'
+    role: ["user"]
   }
 
   nomeContattocognome = {}
-
+  ruoli : string[] = []
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private guard : RouteGuardService
+    private guard: RouteGuardService
   ) { }
 
   ngOnInit(): void {
   }
 
-  login(){
-    console.log(this.logIn);
+  login() {
     this.loginService.LoginUser(this.logIn).subscribe(resp => {
       localStorage.setItem('token', resp.accessToken);
+      localStorage.setItem('roles', JSON.stringify(resp.roles))
+      this.stato = this.loginService.setNavigationMode()
+      this.mostraNav.emit(this.stato)
       this.guard.setLogin();
       this.router.navigate(['dashboard']);
-      console.log(resp);
     },
-    err => {      
-    console.log("utente non esistente");
-  })
+      err => {
+        console.log("utente non esistente");
+      })
   }
 
-  singup(){
-    console.log(this.singUp)
+  singup() {
+    this.loginService.SingUpUser(this.singUp).subscribe(resp => {
+      this.logIn.username = this.singUp.username;
+      this.logIn.password = this.singUp.password;
+      this.login();
+    })
   }
 }

@@ -4,6 +4,7 @@ import { IFatture } from 'src/app/interfaces/ifatture';
 import { FattureService } from 'src/app/services/fatture.service';
 import { FormControl } from '@angular/forms';
 import { ClientiService } from 'src/app/services/clienti.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-fatture-cliente',
@@ -12,12 +13,13 @@ import { ClientiService } from 'src/app/services/clienti.service';
 })
 export class FattureClienteComponent implements OnInit {
 
-  mostra = true;
+  mostra = this.loginService.setNavigationMode()
   titolo = ''
   fatture: IFatture[] = []
 
   constructor(
     private fattureService: FattureService,
+    private loginService: LoginService,
     private clientiService: ClientiService,
     private route: ActivatedRoute,
     private router: Router) { }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IClienti } from 'src/app/interfaces/iclienti';
 import { ClientiService } from 'src/app/services/clienti.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-clienti',
@@ -10,18 +11,19 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./clienti.component.css']
 })
 export class ClientiComponent implements OnInit {
-  mostra = true
 
   page = 1;
   pageSize = 8;
   collectionSize = 0
+  mostra = this.loginService.setNavigationMode()
 
   Clienti: IClienti[] = [];
   clientiTotali: IClienti[] = [];
 
   constructor(
     private clientiService: ClientiService,
-    private router: Router) {
+    private router: Router,
+    private loginService: LoginService) {
   }
 
   ngOnInit(): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-top-nav',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-nav.component.css']
 })
 export class TopNavComponent implements OnInit {
-  mostra = true;
-  constructor() { }
+
+
+
+  constructor(private loginService: LoginService){
+  }
 
   ngOnInit(): void {
+
   }
 
 }

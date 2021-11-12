@@ -8,7 +8,7 @@ import { ISignUp } from '../interfaces/isign-up';
   providedIn: 'root'
 })
 export class LoginService {
-
+  roles: any;
   urlAPI = environment.serverAddress + 'api/auth/';
 
   constructor(public http: HttpClient) { }
@@ -23,6 +23,13 @@ export class LoginService {
 
   setToken(){
     return localStorage.getItem('token')
+  }
+
+  setNavigationMode(){
+    if(localStorage.getItem('roles')){
+      this.roles = localStorage.getItem('roles')
+    }
+    return JSON.parse(this.roles).includes('ROLE_ADMIN')
   }
 
 }

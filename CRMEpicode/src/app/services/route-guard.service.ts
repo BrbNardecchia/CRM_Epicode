@@ -9,13 +9,18 @@ export class RouteGuardService implements CanActivate {
 
   login: boolean = true;
 
+
   constructor() { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean  {
+  canActivate(route: ActivatedRouteSnapshot, 
+    state: RouterStateSnapshot): boolean  {
     return this.login;
   }
 
-  setLogin(): void {
+  setLogin() {
     this.login = !this.login;
   }
+
+
+
 }
